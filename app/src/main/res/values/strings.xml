@@ -3,4 +3,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="queue">Queue</string>
+    <string name="favourites">Favourites</string>
+    <string name="listen_later">Listen Later</string>
+    <string name="account">Account</string>
+    <string name="saved">Saved</string>
 </resources>
