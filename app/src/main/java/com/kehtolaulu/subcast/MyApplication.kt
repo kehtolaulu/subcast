@@ -1,18 +1,11 @@
 package com.kehtolaulu.subcast
 
-import android.annotation.SuppressLint
-import android.app.Application
-import android.content.Context
+import com.kehtolaulu.subcast.di.components.DaggerAppComponent
+import dagger.android.AndroidInjector
+import dagger.android.DaggerApplication
 
-class MyApplication : Application() {
-
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-         var context: Context? = null
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        context = applicationContext
+class MyApplication : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
+        return DaggerAppComponent.builder().create(this)
     }
 }
