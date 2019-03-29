@@ -1,11 +1,20 @@
 package com.kehtolaulu.subcast
 
-import com.kehtolaulu.subcast.di.components.DaggerAppComponent
+import android.app.Application
+import com.kehtolaulu.subcast.di.components.AppComponent
+import com.kehtolaulu.subcast.di.modules.AppModule
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
-class MyApplication : DaggerApplication() {
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().create(this)
+class MyApplication : Application() {
+    companion object {
+        lateinit var appComponent: AppComponent
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+//        appComponent = DaggerAppComponent.builder()
+//            .appModule(AppModule(this))
+//            .build()
     }
 }

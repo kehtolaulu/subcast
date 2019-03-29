@@ -1,13 +1,12 @@
 package com.kehtolaulu.subcast.di.components
 
-import com.kehtolaulu.subcast.MyApplication
+import android.content.Context
 import com.kehtolaulu.subcast.di.modules.AppModule
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
+import javax.inject.Singleton
 
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class])
-interface AppComponent : AndroidInjector<MyApplication> {
-    @Component.Builder
-    abstract class Builder : AndroidInjector.Builder<MyApplication>()
+@Singleton
+@Component(modules = [AppModule::class])
+interface AppComponent {
+    fun provideContext(): Context
 }
