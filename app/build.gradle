@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -12,7 +14,6 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -22,14 +23,51 @@ android {
     }
 }
 
+androidExtensions {
+    experimental = true
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation 'com.android.support:support-v4:28.0.0'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.android.support:design:28.0.0'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+
+    implementation 'androidx.recyclerview:recyclerview-selection:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.7'
+
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    //stetho
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.0'
+
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //dagger
+    implementation 'com.google.dagger:dagger:2.20'
+    kapt 'com.google.dagger:dagger-compiler:2.20'
+
+    //room
+    implementation 'androidx.room:room-runtime:2.0.0-beta01'
+    kapt 'androidx.room:room-compiler:2.0.0-beta01'
+
+    //Room viewer
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
+
+    // Moxy
+    implementation 'tech.schoolhelper:moxy-x:1.5.6'
+    implementation 'tech.schoolhelper:moxy-x-androidx:1.5.6'
+    kapt 'tech.schoolhelper:moxy-x-compiler:1.5.6'
 }

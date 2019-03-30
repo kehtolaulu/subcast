@@ -1,18 +1,19 @@
 package com.kehtolaulu.subcast
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.content.Context
+import com.kehtolaulu.subcast.di.components.AppComponent
+import com.kehtolaulu.subcast.di.components.DaggerAppComponent
+import com.kehtolaulu.subcast.di.modules.AppModule
 
 class MyApplication : Application() {
-
     companion object {
-        @SuppressLint("StaticFieldLeak")
-         var context: Context? = null
+        lateinit var appComponent: AppComponent
     }
 
     override fun onCreate() {
         super.onCreate()
-        context = applicationContext
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
 }
