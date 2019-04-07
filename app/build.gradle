@@ -6,6 +6,27 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+detekt {
+    version = "1.0.0-RC12"
+    input = files("${project.rootDir}/${project.getName()}/src/main/java")
+    config = files("${project.rootDir}/detekt/detekt-config.yml")
+    filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
+    reports {
+        xml {
+            enabled = true
+            destination = file("build/reports/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("build/reports/detekt.html")
+        }
+    }
+}
+
+ext {
+    nav_version = "1.0.0"
+}
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -14,6 +35,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -30,7 +52,7 @@ androidExtensions {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
@@ -60,14 +82,21 @@ dependencies {
     kapt 'com.google.dagger:dagger-compiler:2.20'
 
     //room
-    implementation 'androidx.room:room-runtime:2.0.0-beta01'
-    kapt 'androidx.room:room-compiler:2.0.0-beta01'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha06'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha06'
 
     //Room viewer
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
 
     // Moxy
-    implementation 'tech.schoolhelper:moxy-x:1.5.6'
     implementation 'tech.schoolhelper:moxy-x-androidx:1.5.6'
     kapt 'tech.schoolhelper:moxy-x-compiler:1.5.6'
+
+    implementation 'com.google.android.material:material:1.1.0-alpha05'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+
+    // Navigation
+    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
 }
