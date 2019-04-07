@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/main_graph"
+            app:startDestination="@id/navigation_downloads">
+    <fragment
+            android:id="@+id/navigation_downloads"
+            android:name="com.kehtolaulu.subcast.ui.DownloadsFragment"
+            android:label="DownloadsFragment"/>
+    <fragment
+            android:id="@+id/navigation_queue"
+            android:name="com.kehtolaulu.subcast.ui.QueueFragment"
+            android:label="QueueFragment"/>
+    <fragment
+            android:id="@+id/navigation_favourites"
+            android:name="com.kehtolaulu.subcast.ui.FavouritesFragment"
+            android:label="FavouritesFragment"/>
+    <fragment
+            android:id="@+id/navigation_later"
+            android:name="com.kehtolaulu.subcast.ui.LaterFragment"
+            android:label="LaterFragment"/>
+    <activity
+            android:id="@+id/navigation_account"
+            android:name="com.kehtolaulu.subcast.ui.AccountActivity"
+            android:label="AccountActivity"/>
+</navigation>
