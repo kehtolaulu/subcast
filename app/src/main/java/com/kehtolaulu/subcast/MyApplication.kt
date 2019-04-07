@@ -7,7 +7,7 @@ import com.kehtolaulu.subcast.di.modules.AppModule
 
 class MyApplication : Application() {
     companion object {
-        lateinit var appComponent: AppComponent
+        var appComponent: AppComponent? = null
     }
 
     override fun onCreate() {
