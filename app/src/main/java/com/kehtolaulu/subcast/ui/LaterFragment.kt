@@ -16,7 +16,7 @@ class LaterFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_queue, container, false)
+    ): View? = inflater.inflate(R.layout.fragment_later, container, false)
 
     override fun onStart() {
         super.onStart()
