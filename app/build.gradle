@@ -84,6 +84,7 @@ dependencies {
     //room
     implementation 'androidx.room:room-runtime:2.1.0-alpha06'
     kapt 'androidx.room:room-compiler:2.1.0-alpha06'
+    implementation 'androidx.room:room-rxjava2:2.0.0'
 
     //Room viewer
     debugImplementation 'com.amitshekhar.android:debug-db:1.0.4'
@@ -99,4 +100,7 @@ dependencies {
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$nav_version"
+
+    //rss
+    implementation 'com.pkmmte.pkrss:pkrss:1.2'
 }
