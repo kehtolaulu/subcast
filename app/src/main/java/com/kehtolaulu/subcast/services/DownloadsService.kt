@@ -6,5 +6,7 @@ import io.reactivex.Observable
 import io.reactivex.Single
 
 class DownloadsService(private var dao: EpisodeDao) {
-    fun getDownloads(): Single<List<Episode>> = dao.getAllDownloads()
+    fun getDownloads(): Single<List<Episode>> {
+        return dao.getAllDownloads()
+    }
 }

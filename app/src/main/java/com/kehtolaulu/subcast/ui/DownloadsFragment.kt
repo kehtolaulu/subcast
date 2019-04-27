@@ -1,5 +1,6 @@
 package com.kehtolaulu.subcast.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,23 +10,35 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.kehtolaulu.subcast.R
+import com.kehtolaulu.subcast.MyApplication
+import com.kehtolaulu.subcast.adapters.EpisodesAdapter
+import com.kehtolaulu.subcast.di.components.DaggerDownloadComponent
+import com.kehtolaulu.subcast.di.modules.DownloadModule
 import com.kehtolaulu.subcast.entities.Episode
 import com.kehtolaulu.subcast.presenters.DownloadsPresenter
-import com.kehtolaulu.subcast.services.DownloadsService
 import com.kehtolaulu.subcast.views.DownloadsView
 import kotlinx.android.synthetic.main.fragment_downloads.view.*
+import javax.inject.Inject
 
-class DownloadsFragment : MvpAppCompatFragment(), DownloadsView{
+class DownloadsFragment : MvpAppCompatFragment(), DownloadsView {
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        initDagger()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
+    @Inject
     @InjectPresenter
     lateinit var presenter: DownloadsPresenter
 
     @ProvidePresenter
-    fun initPresenter(): DownloadsPresenter =
-        DownloadsPresenter(DownloadsService())
+    fun providePresenter(): DownloadsPresenter = presenter
 
-    private var adapter: DownloadsAdapter? = null
+    private var adapter: EpisodesAdapter? = null
 
     override fun updateAdapter() {
         presenter.updateAdapter()
@@ -46,13 +59,10 @@ class DownloadsFragment : MvpAppCompatFragment(), DownloadsView{
         Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_downloads, container, false)
-        adapter = DownloadsAdapter()
+        val view = inflater.inflate(com.kehtolaulu.subcast.R.layout.fragment_downloads, container, false)
+        adapter = EpisodesAdapter()
         val rv = view.recycler_downloads
         rv.adapter = adapter
         adapter?.listItemClickListener = activity as MainActivity
@@ -61,8 +71,15 @@ class DownloadsFragment : MvpAppCompatFragment(), DownloadsView{
         return view
     }
 
+    private fun initDagger() {
+        DaggerDownloadComponent.builder()
+            .appComponent(MyApplication.appComponent)
+            .downloadModule(DownloadModule())
+            .build()
+            .inject(this)
+    }
+
     companion object {
-        @JvmStatic
         fun newInstance() = DownloadsFragment()
     }
 }
