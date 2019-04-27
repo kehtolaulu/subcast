@@ -5,4 +5,5 @@ import com.kehtolaulu.subcast.entities.Episode
 
 interface PlayerView : MvpView {
     fun showEpisode(episode: Episode)
+    fun showError(error: Throwable)
 }
