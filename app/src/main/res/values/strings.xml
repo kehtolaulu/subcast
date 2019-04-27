@@ -10,7 +10,9 @@
     <string name="saved">Saved</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
-    <string name="title_activity_player">PlayerActivity</string>
+    <string name="title_activity_player">Player Activity</string>
     <string name="_0_00">0:00</string>
     <string name="_2_30">2:30</string>
+    <string name="tvnameofepisode">tvNameOfEpisode</string>
+    <string name="search">Search</string>
 </resources>

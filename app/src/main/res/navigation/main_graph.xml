@@ -19,8 +19,8 @@
             android:id="@+id/navigation_later"
             android:name="com.kehtolaulu.subcast.ui.LaterFragment"
             android:label="LaterFragment"/>
-    <activity
+    <fragment
             android:id="@+id/navigation_account"
-            android:name="com.kehtolaulu.subcast.ui.AccountActivity"
-            android:label="AccountActivity"/>
+            android:name="com.kehtolaulu.subcast.ui.AccountFragment"
+            android:label="AccountFragment"/>
 </navigation>

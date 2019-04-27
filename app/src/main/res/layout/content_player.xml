@@ -10,25 +10,24 @@
         tools:context=".ui.PlayerActivity">
 
     <ImageButton
-            android:layout_height="50dp"
-            android:layout_width="50dp"
+            android:layout_height="48dp"
+            android:layout_width="48dp"
             android:background="@drawable/play"
             android:id="@+id/btn_play"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.518"
             app:layout_constraintEnd_toEndOf="parent"
-            android:contentDescription="TODO"
-            android:layout_marginBottom="62dp"
+            android:layout_marginBottom="64dp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/next"
             android:id="@+id/btn_next"
             app:layout_constraintStart_toEndOf="@+id/btn_play"
-            android:layout_marginLeft="35dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginBottom="62dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginBottom="64dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="8dp"
@@ -38,13 +37,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"/>
     <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@drawable/prev"
             android:id="@+id/btn_prev"
             app:layout_constraintEnd_toStartOf="@+id/btn_play"
-            android:layout_marginEnd="45dp"
-            android:layout_marginRight="45dp"
+            android:layout_marginEnd="44dp"
+            android:layout_marginRight="44dp"
             android:layout_marginBottom="62dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +54,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"/>
     <SeekBar
-            android:layout_width="342dp"
+            android:layout_width="0dp"
             android:layout_height="21dp"
             android:id="@+id/seekBar"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,7 +95,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="197dp"/>
     <TextView
-            android:text="@string/name"
+            android:text="@string/tvnameofepisode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_name"

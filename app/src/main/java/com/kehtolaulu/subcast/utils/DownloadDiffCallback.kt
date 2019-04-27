@@ -10,5 +10,4 @@ class DownloadDiffCallback : DiffUtil.ItemCallback<Episode>() {
 
     override fun areContentsTheSame(p0: Episode, p1: Episode): Boolean =
         p0 == p1
-
 }
