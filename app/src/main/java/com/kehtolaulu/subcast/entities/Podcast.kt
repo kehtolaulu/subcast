@@ -1,11 +1,13 @@
 package com.kehtolaulu.subcast.entities
 
-import androidx.annotation.NonNull
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "podcast")
 data class Podcast(
     @SerializedName("trackId")
@@ -18,4 +20,4 @@ data class Podcast(
     @SerializedName("feedUrl")
     @Expose
     var feedUrl: String? = null
-)
+) : Parcelable
