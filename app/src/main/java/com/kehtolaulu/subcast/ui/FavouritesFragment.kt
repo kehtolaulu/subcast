@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -38,7 +39,7 @@ class FavouritesFragment : MvpAppCompatFragment(), FavouritesView {
     }
 
     override fun updateAdapter() {
-//        presenter.updateAdapter()
+        presenter.updateAdapter()
     }
 
     override fun submitListIntoAdapter(list: List<Podcast>) {
@@ -50,7 +51,7 @@ class FavouritesFragment : MvpAppCompatFragment(), FavouritesView {
     }
 
     override fun showError(error: Throwable) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
