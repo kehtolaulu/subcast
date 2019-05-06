@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.entities.Episode
 import kotlinx.android.extensions.LayoutContainer
-import com.kehtolaulu.subcast.utils.DownloadDiffCallback
-import kotlinx.android.synthetic.main.card_download.*
+import com.kehtolaulu.subcast.utils.EpisodesDiffCallback
+import kotlinx.android.synthetic.main.card_episode.*
 
-class EpisodesAdapter : ListAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(DownloadDiffCallback()) {
+open class EpisodesAdapter : ListAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(EpisodesDiffCallback()) {
 
     var listItemClickListener: EpisodeOnClickListener? = null
     var episodesList: ArrayList<Episode>? = null
@@ -21,7 +21,7 @@ class EpisodesAdapter : ListAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): EpisodeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_download, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_episode, parent, false)
         return EpisodeViewHolder(view)
     }
 
@@ -54,7 +54,6 @@ class EpisodesAdapter : ListAdapter<Episode, EpisodesAdapter.EpisodeViewHolder>(
 
         fun bind(episode: Episode) {
             txt_name.text = episode.name
-            txt_description.text = episode.description
 
             containerView.setOnClickListener {
                 episode.let {

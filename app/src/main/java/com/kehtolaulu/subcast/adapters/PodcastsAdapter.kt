@@ -7,11 +7,11 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.utils.SearchDiffCallback
+import com.kehtolaulu.subcast.utils.PodcastsDiffCallback
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.card_download.*
+import kotlinx.android.synthetic.main.card_podcast.*
 
-class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(SearchDiffCallback()) {
+open class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(PodcastsDiffCallback()) {
 
     var listItemClickListener: PodcastOnClickListener? = null
     var podcasts: ArrayList<Podcast>? = null
@@ -21,7 +21,7 @@ class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): PodcastViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_search, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.card_podcast, parent, false)
         return PodcastViewHolder(view)
     }
 
@@ -51,7 +51,7 @@ class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(
         RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         fun bind(podcast: Podcast) {
-            txt_name.text = podcast.name
+            tv_name.text = podcast.name
 
             containerView.setOnClickListener {
                 podcast.let {

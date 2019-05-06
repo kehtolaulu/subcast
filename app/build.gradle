@@ -103,4 +103,11 @@ dependencies {
 
     //rss
     implementation 'com.pkmmte.pkrss:pkrss:1.2'
+    implementation 'com.squareup.okhttp:okhttp:2.7.2'
+    implementation 'com.squareup.okhttp:okhttp-urlconnection:2.7.2'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
 }
