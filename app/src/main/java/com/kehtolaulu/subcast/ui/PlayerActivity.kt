@@ -28,10 +28,10 @@ class PlayerActivity : MvpAppCompatActivity(), PlayerView {
     fun providePresenter(): PlayerPresenter = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        initDagger()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-        initDagger()
-        presenter.getEpisode(intent.getIntExtra("id", 0))
+        presenter.showEpisode(intent.getParcelableExtra("episode"))
     }
 
     override fun showEpisode(episode: Episode) {

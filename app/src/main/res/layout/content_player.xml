@@ -95,7 +95,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="197dp"/>
     <TextView
-            android:text="@string/tvnameofepisode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_name"
@@ -119,6 +118,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/seekBar"
-            android:contentDescription="TODO" android:layout_marginLeft="30dp" android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp" android:layout_marginRight="30dp"/>
+            android:contentDescription="TODO"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
