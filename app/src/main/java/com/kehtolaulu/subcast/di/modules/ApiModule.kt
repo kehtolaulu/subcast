@@ -1,7 +1,7 @@
 package com.kehtolaulu.subcast.di.modules
 
 import com.kehtolaulu.subcast.api.DownloadApi
-import com.kehtolaulu.subcast.api.SearchApi
+import com.kehtolaulu.subcast.api.ItunesApi
 import com.kehtolaulu.subcast.api.SubcastApi
 import dagger.Module
 import dagger.Provides
@@ -14,13 +14,13 @@ class ApiModule {
 
     @Provides
     @Singleton
-    fun provideDownloadApi(@Named("SUBCAST_RETROFIT") retrofit: Retrofit): DownloadApi =
+    fun provideDownloadApi(@Named("ITUNES_RETROFIT") retrofit: Retrofit): DownloadApi =
         retrofit.create(DownloadApi::class.java)
 
     @Provides
     @Singleton
-    fun provideSearchApi(@Named("ITUNES_RETROFIT") retrofit: Retrofit): SearchApi =
-        retrofit.create(SearchApi::class.java)
+    fun provideItunesApi(@Named("ITUNES_RETROFIT") retrofit: Retrofit): ItunesApi =
+        retrofit.create(ItunesApi::class.java)
 
     @Provides
     @Singleton

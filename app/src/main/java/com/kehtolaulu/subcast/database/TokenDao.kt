@@ -10,7 +10,7 @@ interface TokenDao {
     fun insertToken(token: Token)
 
     @Query("SELECT * FROM token LIMIT 1")
-    fun selectToken() : Token
+    fun selectToken() : Single<Token>
 
     @Delete
     fun deleteToken(token: Token)

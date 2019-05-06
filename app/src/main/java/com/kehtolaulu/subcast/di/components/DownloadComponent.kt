@@ -1,5 +1,6 @@
 package com.kehtolaulu.subcast.di.components
 
+import com.kehtolaulu.subcast.di.modules.ApiModule
 import com.kehtolaulu.subcast.di.modules.DownloadModule
 import com.kehtolaulu.subcast.di.scope.DownloadScope
 import com.kehtolaulu.subcast.presenters.DownloadsPresenter
