@@ -1,11 +1,12 @@
 package com.kehtolaulu.subcast.di.modules
 
+import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.kehtolaulu.subcast.api.ApiKeyInterceptor
-import com.kehtolaulu.subcast.database.EpisodeDao
+import com.kehtolaulu.subcast.api.SubcastApi
+import com.kehtolaulu.subcast.constants.ITUNES_URL
+import com.kehtolaulu.subcast.constants.SUBCAST_URL
 import com.kehtolaulu.subcast.database.TokenDao
-import com.kehtolaulu.subcast.di.scope.PlayerScope
-import com.kehtolaulu.subcast.services.PlayerService
 import com.kehtolaulu.subcast.services.TokenService
 import dagger.Module
 import dagger.Provides
@@ -20,7 +21,8 @@ import javax.inject.Singleton
 @Module
 class NetModule {
     @Provides
-    fun provideTokenService(dao: TokenDao): TokenService = TokenService(dao)
+    fun provideTokenService(dao: TokenDao, context: Context): TokenService =
+        TokenService(dao, context)
 
     @Provides
     @Singleton
@@ -41,6 +43,7 @@ class NetModule {
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor(stethoInterceptor)
+            .addInterceptor(apiKeyInterceptor)
             .build()
 
     @Provides
@@ -56,12 +59,12 @@ class NetModule {
     @Provides
     @Singleton
     @Named(ITUNES_URL)
-    fun provideItunesUrlString(): String = "https://itunes.apple.com/"
+    fun provideItunesUrlString(): String = ITUNES_URL
 
     @Provides
     @Singleton
     @Named(SUBCAST_URL)
-    fun provideSubcastUrlString(): String = "http://subcast.herokuapp.com/"
+    fun provideSubcastUrlString(): String = SUBCAST_URL
 
     @Provides
     @Singleton
@@ -91,7 +94,7 @@ class NetModule {
 
     @Provides
     @Singleton
-    @Named("SUBCAST_RETROFIT")
+    @Named(SUBCAST_RETROFIT)
     fun provideSubcastRetrofit(
         @Named(SUBCAST_RETROFIT) client: OkHttpClient,
         converterFactory: GsonConverterFactory,
@@ -108,9 +111,7 @@ class NetModule {
     companion object {
         private const val ITUNES_RETROFIT = "ITUNES_RETROFIT"
         private const val SUBCAST_RETROFIT = "SUBCAST_RETROFIT"
-        private const val NAME_STETHO = "StethoInterceptor"
-        private const val ITUNES_URL = "ItunesURL"
-        private const val SUBCAST_URL = "SubcastURL"
-        private const val NAME_API_KEY = "ApiKey"
+        private const val NAME_STETHO = "STETHO"
+        private const val NAME_API_KEY = "TOKEN"
     }
 }
