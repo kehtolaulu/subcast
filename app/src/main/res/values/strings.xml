@@ -8,4 +8,17 @@
     <string name="listen_later">Listen Later</string>
     <string name="account">Account</string>
     <string name="saved">Saved</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="title_activity_player">Player Activity</string>
+    <string name="_0_00">0:00</string>
+    <string name="_2_30">2:30</string>
+    <string name="tvnameofepisode">tvNameOfEpisode</string>
+    <string name="search">Search</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="login">Login</string>
+    <string name="sign_in">Sign in</string>
+    <string name="password">Password</string>
+    <string name="sign_up">sign up</string>
+    <string name="unsubscribe">unsubscribe</string>
 </resources>
