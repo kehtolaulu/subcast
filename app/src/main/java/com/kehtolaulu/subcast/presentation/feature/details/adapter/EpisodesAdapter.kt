@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.adapters
+package com.kehtolaulu.subcast.presentation.feature.details.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.domain.feature.details.Episode
-import com.kehtolaulu.subcast.extensions.toMinutesSecondsFormat
-import com.kehtolaulu.subcast.utils.EpisodesDiffCallback
+import com.kehtolaulu.subcast.presentation.extensions.toMinutesSecondsFormat
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_episode.*
 

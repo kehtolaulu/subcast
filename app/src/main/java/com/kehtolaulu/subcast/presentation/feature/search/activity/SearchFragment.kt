@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.search.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -13,10 +13,11 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
 import com.kehtolaulu.subcast.R
-import com.kehtolaulu.subcast.adapters.PodcastsAdapter
 import com.kehtolaulu.subcast.di.components.DaggerSearchComponent
 import com.kehtolaulu.subcast.di.modules.SearchModule
-import com.kehtolaulu.subcast.entities.Podcast
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
+import com.kehtolaulu.subcast.presentation.feature.search.adapter.PodcastsAdapter
 import com.kehtolaulu.subcast.presentation.feature.search.presenter.SearchPresenter
 import com.kehtolaulu.subcast.presentation.feature.search.view.SearchView
 import kotlinx.android.synthetic.main.fragment_search.view.*
@@ -24,6 +25,15 @@ import javax.inject.Inject
 
 class SearchFragment : MvpAppCompatFragment(), MainActivity.OnQueryTextListener,
     SearchView {
+
+    var adapter: PodcastsAdapter? = null
+
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: SearchPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): SearchPresenter = presenter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -42,15 +52,6 @@ class SearchFragment : MvpAppCompatFragment(), MainActivity.OnQueryTextListener,
         adapter?.submitList(list as MutableList<Podcast>)
     }
 
-    var adapter: PodcastsAdapter? = null
-
-    @Inject
-    @InjectPresenter
-    lateinit var presenter: SearchPresenter
-
-    @ProvidePresenter
-    fun providePresenter(): SearchPresenter = presenter
-
     override fun showError(error: Throwable) {
         Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
@@ -61,10 +62,6 @@ class SearchFragment : MvpAppCompatFragment(), MainActivity.OnQueryTextListener,
         Log.i("Tag", query)
         queryText = query
         updateAdapterByQueryResult(query)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -79,10 +76,6 @@ class SearchFragment : MvpAppCompatFragment(), MainActivity.OnQueryTextListener,
         adapter?.listItemClickListener = activity as MainActivity
         rv.layoutManager = LinearLayoutManager(activity)
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     override fun updateAdapterByQueryResult(query: String) {

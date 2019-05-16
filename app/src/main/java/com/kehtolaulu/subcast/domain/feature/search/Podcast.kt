@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.entities
+package com.kehtolaulu.subcast.domain.feature.search
 
 import android.os.Parcelable
 import androidx.room.Entity

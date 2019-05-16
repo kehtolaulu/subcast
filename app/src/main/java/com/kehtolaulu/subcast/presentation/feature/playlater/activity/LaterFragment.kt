@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.playlater.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -10,17 +10,28 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
-import com.kehtolaulu.subcast.adapters.LaterAdapter
 import com.kehtolaulu.subcast.di.components.DaggerLaterComponent
 import com.kehtolaulu.subcast.di.modules.LaterModule
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.extensions.showToast
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.presentation.extensions.showToast
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
+import com.kehtolaulu.subcast.presentation.feature.playlater.adapter.LaterAdapter
 import com.kehtolaulu.subcast.presentation.feature.playlater.presenter.LaterPresenter
 import com.kehtolaulu.subcast.presentation.feature.playlater.view.LaterView
 import kotlinx.android.synthetic.main.fragment_downloads.view.*
 import javax.inject.Inject
 
 class LaterFragment : Fragment(), LaterView {
+
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: LaterPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): LaterPresenter = presenter
+
+    private var adapter: LaterAdapter? = null
+
     override fun updateAdapter() {
         presenter.updateAdapter()
     }
@@ -33,20 +44,12 @@ class LaterFragment : Fragment(), LaterView {
         val episodes: ArrayList<Episode> = ArrayList()
         adapter?.getList()?.let { episodes.addAll(it) }
         episodes.addAll(episodes)
-        adapter?.submitList(episodes)    }
+        adapter?.submitList(episodes)
+    }
 
     override fun showError(error: Throwable) {
         activity?.showToast(error.message.toString())
     }
-
-    @Inject
-    @InjectPresenter
-    lateinit var presenter: LaterPresenter
-
-    @ProvidePresenter
-    fun providePresenter(): LaterPresenter = presenter
-
-    private var adapter: LaterAdapter? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
