@@ -32,14 +32,14 @@
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toEndOf="@+id/txt_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.535"
-                app:layout_constraintVertical_bias="1.0"
-                android:id="@+id/constraintLayout" android:layout_marginLeft="240dp" android:layout_marginStart="240dp">
+                app:layout_constraintVertical_bias="1.0" android:layout_marginLeft="240dp"
+                android:layout_marginStart="240dp" android:id="@+id/constraintLayout3">
 
             <ImageButton
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:background="@drawable/to_later"
-                    android:id="@+id/btn_to_later"
+                    android:background="@drawable/to_downloads"
+                    android:id="@+id/btn_to_downloads"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginEnd="4dp"
                     android:layout_marginRight="4dp"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_progress" app:layout_constraintStart_toEndOf="@+id/txt_name"
-                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/constraintLayout"
+                app:layout_constraintHorizontal_bias="0.5" app:layout_constraintEnd_toStartOf="@+id/constraintLayout3"
                 app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

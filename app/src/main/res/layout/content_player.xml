@@ -7,13 +7,13 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/activity_player"
-        tools:context=".ui.PlayerActivity">
+        tools:context=".presentation.feature.player.activity.PlayerActivity">
 
     <ImageButton
             android:layout_height="48dp"
             android:layout_width="48dp"
-            android:background="@drawable/play"
             android:id="@+id/btn_play"
+            android:background="@android:color/transparent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="0.518"
             app:layout_constraintEnd_toEndOf="parent"
