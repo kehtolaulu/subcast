@@ -2,9 +2,8 @@ package com.kehtolaulu.subcast.di.components
 
 import com.kehtolaulu.subcast.di.modules.DetailsModule
 import com.kehtolaulu.subcast.di.scope.DetailsScope
-import com.kehtolaulu.subcast.di.scope.DownloadScope
-import com.kehtolaulu.subcast.presenters.DetailsPresenter
-import com.kehtolaulu.subcast.ui.DetailsFragment
+import com.kehtolaulu.subcast.presentation.feature.details.presenter.DetailsPresenter
+import com.kehtolaulu.subcast.presentation.feature.details.activity.DetailsFragment
 import dagger.Component
 
 @DetailsScope

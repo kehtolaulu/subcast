@@ -1,8 +1,8 @@
 package com.kehtolaulu.subcast.di.modules
 
-import com.kehtolaulu.subcast.api.DownloadApi
-import com.kehtolaulu.subcast.api.ItunesApi
-import com.kehtolaulu.subcast.api.SubcastApi
+import com.kehtolaulu.subcast.data.network.DownloadApi
+import com.kehtolaulu.subcast.data.network.ItunesApi
+import com.kehtolaulu.subcast.data.network.SubcastApi
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -24,6 +24,7 @@ class ApiModule {
 
     @Provides
     @Singleton
+    @Named("SUBCAST_API")
     fun provideSubcastApi(@Named("SUBCAST_RETROFIT") retrofit: Retrofit) : SubcastApi =
         retrofit.create(SubcastApi::class.java)
 }

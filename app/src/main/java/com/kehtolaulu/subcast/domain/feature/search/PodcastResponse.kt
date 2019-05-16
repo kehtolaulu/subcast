@@ -1,7 +1,8 @@
-package com.kehtolaulu.subcast.entities
+package com.kehtolaulu.subcast.domain.feature.search
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
 
 data class PodcastResponse(
     @SerializedName("resultCount")

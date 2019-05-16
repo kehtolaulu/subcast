@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.adapters
+package com.kehtolaulu.subcast.presentation.feature.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.domain.feature.search.Podcast
-import com.kehtolaulu.subcast.utils.PodcastsDiffCallback
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_podcast.*
 
-open class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(PodcastsDiffCallback()) {
+open class PodcastsAdapter : ListAdapter<Podcast, PodcastsAdapter.PodcastViewHolder>(
+    PodcastsDiffCallback()
+) {
 
     var listItemClickListener: PodcastOnClickListener? = null
     var podcasts: ArrayList<Podcast>? = null

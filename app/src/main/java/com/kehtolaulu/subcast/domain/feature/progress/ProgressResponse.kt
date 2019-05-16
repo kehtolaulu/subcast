@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.entities
+package com.kehtolaulu.subcast.domain.feature.progress
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName

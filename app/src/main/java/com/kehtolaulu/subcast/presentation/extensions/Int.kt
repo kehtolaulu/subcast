@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.extensions
+package com.kehtolaulu.subcast.presentation.extensions
 
 fun Int.toMinutesSecondsFormat() : String {
     val seconds = this % 60

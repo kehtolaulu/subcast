@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.services
+package com.kehtolaulu.subcast.data.interactor
 
 import com.kehtolaulu.subcast.data.database.EpisodeDao
 import com.kehtolaulu.subcast.data.network.SubcastApi

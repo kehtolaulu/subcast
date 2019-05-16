@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.views
+package com.kehtolaulu.subcast.presentation.feature.main.view
 
 import com.arellomobile.mvp.MvpView
 

@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.adapters
+package com.kehtolaulu.subcast.presentation.feature.favourites.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +11,9 @@ import com.kehtolaulu.subcast.presentation.feature.search.adapter.PodcastsDiffCa
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_podcast.*
 
-open class FavouritesAdapter : ListAdapter<Podcast, FavouritesAdapter.PodcastViewHolder>(PodcastsDiffCallback()) {
+open class FavouritesAdapter : ListAdapter<Podcast, FavouritesAdapter.PodcastViewHolder>(
+    PodcastsDiffCallback()
+) {
 
     var listItemClickListener: PodcastOnClickListener? = null
     var podcasts: ArrayList<Podcast>? = null

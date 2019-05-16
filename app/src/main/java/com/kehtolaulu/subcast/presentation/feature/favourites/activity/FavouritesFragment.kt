@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.favourites.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -10,12 +10,13 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
-import com.kehtolaulu.subcast.adapters.FavouritesAdapter
 import com.kehtolaulu.subcast.di.components.DaggerFavouritesComponent
-import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.extensions.showToast
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.extensions.showToast
+import com.kehtolaulu.subcast.presentation.feature.favourites.adapter.FavouritesAdapter
 import com.kehtolaulu.subcast.presentation.feature.favourites.presenter.FavouritesPresenter
 import com.kehtolaulu.subcast.presentation.feature.favourites.view.FavouritesView
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_favourites.view.*
 import javax.inject.Inject
 
@@ -76,12 +77,8 @@ class FavouritesFragment : MvpAppCompatFragment(),
         rv.adapter = adapter
         adapter?.listItemClickListener = activity as MainActivity
         rv.layoutManager = LinearLayoutManager(activity)
-        presenter.updateAdapter()
+        updateAdapter()
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     companion object {

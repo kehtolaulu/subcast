@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.sync.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,8 @@ import com.kehtolaulu.subcast.MyApplication
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.di.components.DaggerSyncComponent
 import com.kehtolaulu.subcast.di.modules.SyncModule
-import com.kehtolaulu.subcast.extensions.showToast
+import com.kehtolaulu.subcast.presentation.extensions.showToast
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import com.kehtolaulu.subcast.presentation.feature.sync.presenter.SyncPresenter
 import com.kehtolaulu.subcast.presentation.feature.sync.view.SyncView
 import kotlinx.android.synthetic.main.fragment_sync.view.*
@@ -20,16 +21,16 @@ import javax.inject.Inject
 
 class SyncFragment : MvpAppCompatFragment(), SyncView {
 
-    override fun showError(message: String) {
-        activity?.showToast(message)
-    }
-
     @Inject
     @InjectPresenter
     lateinit var presenter: SyncPresenter
 
     @ProvidePresenter
     fun providePresenter(): SyncPresenter = presenter
+
+    override fun showError(message: String) {
+        activity?.showToast(message)
+    }
 
     override fun showSuccess() {
         activity?.showToast("successful sync")

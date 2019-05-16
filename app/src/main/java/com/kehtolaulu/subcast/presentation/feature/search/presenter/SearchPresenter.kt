@@ -1,17 +1,17 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.search.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.services.PodcastsService
-import com.kehtolaulu.subcast.views.SearchView
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
+import com.kehtolaulu.subcast.presentation.feature.search.view.SearchView
 import io.reactivex.disposables.CompositeDisposable
 
 @InjectViewState
-class SearchPresenter(private val service: PodcastsService) : MvpPresenter<SearchView>() {
+class SearchPresenter(private val interactor: PodcastsInteractor) : MvpPresenter<SearchView>() {
     private val compositeDisposable = CompositeDisposable()
 
     fun updateAdapter(query: String) {
-        val disposable = service
+        val disposable = interactor
             .getPodcastsByName(query)
             .subscribe(
                 {

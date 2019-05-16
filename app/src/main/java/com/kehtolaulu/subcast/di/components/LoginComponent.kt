@@ -2,8 +2,8 @@ package com.kehtolaulu.subcast.di.components
 
 import com.kehtolaulu.subcast.di.modules.LoginModule
 import com.kehtolaulu.subcast.di.scope.LoginScope
-import com.kehtolaulu.subcast.presenters.LoginPresenter
-import com.kehtolaulu.subcast.ui.LoginFragment
+import com.kehtolaulu.subcast.presentation.feature.login.presenter.LoginPresenter
+import com.kehtolaulu.subcast.presentation.feature.login.activity.LoginFragment
 import dagger.Component
 
 @LoginScope

@@ -1,12 +1,12 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.details.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.services.PodcastsService
-import com.kehtolaulu.subcast.services.RssDealer
-import com.kehtolaulu.subcast.views.DetailsView
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
+import com.kehtolaulu.subcast.data.interactor.RssInteractor
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.feature.details.view.DetailsView
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -14,8 +14,8 @@ import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class DetailsPresenter(
-    private val podcastsService: PodcastsService,
-    private val rssDealer: RssDealer
+    private val podcastsInteractor: PodcastsInteractor,
+    private val rssInteractor: RssInteractor
 ) :
     MvpPresenter<DetailsView>(), Callback {
     override fun onLoadFailed() {
@@ -34,7 +34,6 @@ class DetailsPresenter(
                     viewState.submitListIntoAdapter(it)
                 }
             }
-//        updateAdapter(list)
     }
 
     private fun toEpisode(article: Article): Episode {
@@ -47,7 +46,7 @@ class DetailsPresenter(
     }
 
     fun getPodcastEpisodes(podcast: Podcast) {
-        rssDealer.getPodcastEpisodes(podcast)?.callback(this)?.async()
+        rssInteractor.getPodcastEpisodes(podcast)?.callback(this)?.async()
     }
 
     fun updateAdapter(podcast: Podcast) {
@@ -56,7 +55,7 @@ class DetailsPresenter(
 
     fun getPodcast(id: Int?) {
         id?.let {
-            podcastsService.getPodcastById(it)
+            podcastsInteractor.getPodcastById(it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ it?.let { podcast -> viewState.showPodcast(podcast) } }, viewState::showError)

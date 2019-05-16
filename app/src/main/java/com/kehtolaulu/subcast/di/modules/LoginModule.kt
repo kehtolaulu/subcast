@@ -1,33 +1,30 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.content.Context
-import com.kehtolaulu.subcast.api.SubcastApi
-import com.kehtolaulu.subcast.database.TokenDao
 import com.kehtolaulu.subcast.di.scope.LoginScope
-import com.kehtolaulu.subcast.presenters.LoginPresenter
-import com.kehtolaulu.subcast.services.AuthService
-import com.kehtolaulu.subcast.services.TokenService
+import com.kehtolaulu.subcast.presentation.feature.login.presenter.LoginPresenter
+import com.kehtolaulu.subcast.data.interactor.AuthInteractor
+import com.kehtolaulu.subcast.data.interactor.TokenInteractor
 import dagger.Module
 import dagger.Provides
 
 @Module
 class LoginModule {
 
-    @LoginScope
-    @Provides
-    fun provideTokenService(tokenDao: TokenDao, context: Context): TokenService =
-        TokenService(tokenDao, context)
-
-    @LoginScope
-    @Provides
-    fun provideAuthService(subcastApi: SubcastApi): AuthService =
-        AuthService(subcastApi)
+//    @LoginScope
+//    @Provides
+//    fun provideTokenService(tokenDao: TokenDao, context: Context): TokenInteractor =
+//        TokenInteractor(tokenDao, context)
+//
+//    @LoginScope
+//    @Provides
+//    fun provideAuthService(subcastApi: SubcastApi): AuthInteractor =
+//        AuthInteractor(subcastApi)
 
     @LoginScope
     @Provides
     fun providePresenter(
-        tokenService: TokenService,
-        authService: AuthService
+        tokenInteractor: TokenInteractor,
+        authInteractor: AuthInteractor
     ): LoginPresenter =
-        LoginPresenter(tokenService, authService)
+        LoginPresenter(tokenInteractor, authInteractor)
 }

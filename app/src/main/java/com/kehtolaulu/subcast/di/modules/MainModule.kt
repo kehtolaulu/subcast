@@ -1,13 +1,9 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.content.Context
-import com.kehtolaulu.subcast.api.SubcastApi
-import com.kehtolaulu.subcast.database.EpisodeDao
-import com.kehtolaulu.subcast.database.TokenDao
 import com.kehtolaulu.subcast.di.scope.MainScope
-import com.kehtolaulu.subcast.di.scope.PlayerScope
-import com.kehtolaulu.subcast.services.EpisodesService
-import com.kehtolaulu.subcast.services.TokenService
+import com.kehtolaulu.subcast.presentation.feature.main.presenter.MainPresenter
+import com.kehtolaulu.subcast.data.interactor.EpisodesInteractor
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
 import dagger.Module
 import dagger.Provides
 
@@ -15,6 +11,6 @@ import dagger.Provides
 class MainModule {
     @MainScope
     @Provides
-    fun provideTokenService(tokenDao: TokenDao, context: Context): TokenService =
-        TokenService(tokenDao, context)
+    fun providePresenter(episodesInteractor: EpisodesInteractor, podcastsInteractor: PodcastsInteractor): MainPresenter =
+        MainPresenter(episodesInteractor, podcastsInteractor)
 }

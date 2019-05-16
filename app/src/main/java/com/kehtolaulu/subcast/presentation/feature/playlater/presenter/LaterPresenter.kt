@@ -1,19 +1,19 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.playlater.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.services.EpisodesService
-import com.kehtolaulu.subcast.views.LaterView
+import com.kehtolaulu.subcast.data.interactor.EpisodesInteractor
+import com.kehtolaulu.subcast.presentation.feature.playlater.view.LaterView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
-class LaterPresenter(private val episodesService: EpisodesService) : MvpPresenter<LaterView>() {
+class LaterPresenter(private val episodesInteractor: EpisodesInteractor) : MvpPresenter<LaterView>() {
     private val compositeDisposable = CompositeDisposable()
 
     fun updateAdapter() {
-        val disposable = episodesService.getListenLater()
+        val disposable = episodesInteractor.getListenLater()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ viewState.submitListIntoAdapter(it) }, viewState::showError)

@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.data.service
+package com.kehtolaulu.subcast.presentation.service
 
 import android.content.ComponentName
 import android.content.Context

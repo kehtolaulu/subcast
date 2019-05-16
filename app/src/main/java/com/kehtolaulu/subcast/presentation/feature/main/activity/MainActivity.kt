@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.main.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,15 +12,26 @@ import com.facebook.stetho.Stetho
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kehtolaulu.subcast.MyApplication
 import com.kehtolaulu.subcast.R
-import com.kehtolaulu.subcast.adapters.*
+import com.kehtolaulu.subcast.data.interactor.TokenInteractor
 import com.kehtolaulu.subcast.di.components.DaggerMainComponent
 import com.kehtolaulu.subcast.di.modules.MainModule
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.extensions.showToast
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.extensions.showToast
+import com.kehtolaulu.subcast.presentation.feature.details.activity.DetailsFragment
+import com.kehtolaulu.subcast.presentation.feature.details.adapter.EpisodesAdapter
+import com.kehtolaulu.subcast.presentation.feature.download.activity.DownloadsFragment
+import com.kehtolaulu.subcast.presentation.feature.download.adapter.DownloadsAdapter
+import com.kehtolaulu.subcast.presentation.feature.favourites.activity.FavouritesFragment
+import com.kehtolaulu.subcast.presentation.feature.favourites.adapter.FavouritesAdapter
+import com.kehtolaulu.subcast.presentation.feature.login.activity.LoginFragment
 import com.kehtolaulu.subcast.presentation.feature.main.presenter.MainPresenter
-import com.kehtolaulu.subcast.services.TokenService
 import com.kehtolaulu.subcast.presentation.feature.main.view.MainView
+import com.kehtolaulu.subcast.presentation.feature.player.activity.PlayerActivity
+import com.kehtolaulu.subcast.presentation.feature.playlater.activity.LaterFragment
+import com.kehtolaulu.subcast.presentation.feature.playlater.adapter.LaterAdapter
+import com.kehtolaulu.subcast.presentation.feature.search.activity.SearchFragment
+import com.kehtolaulu.subcast.presentation.feature.search.adapter.PodcastsAdapter
 import com.kehtolaulu.subcast.presentation.feature.sync.activity.SyncFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -31,17 +42,21 @@ class MainActivity : MvpAppCompatActivity(),
     MainView,
     LaterAdapter.OnClickListener {
 
-
-    override fun showSuccess(message: String) {
-        showToast(message)
-    }
-
     @Inject
     @InjectPresenter
     lateinit var presenter: MainPresenter
 
     @ProvidePresenter
     fun providePresenter(): MainPresenter = presenter
+
+    @Inject
+    lateinit var tokenInteractor: TokenInteractor
+
+    var listener: OnQueryTextListener? = null
+
+    override fun showSuccess(message: String) {
+        showToast(message)
+    }
 
     override fun download(episode: Episode) {
         if (episode.url == null) {
@@ -55,17 +70,12 @@ class MainActivity : MvpAppCompatActivity(),
     }
 
     override fun subscribe(podcast: Podcast) {
-        if (tokenService.getToken() == null) {
+        if (tokenInteractor.getToken() == null) {
             showToast("Please log in first")
         } else {
             presenter.subscribe(podcast)
         }
     }
-
-    @Inject
-    lateinit var tokenService: TokenService
-
-    var listener: OnQueryTextListener? = null
 
     override fun onClick(podcast: Podcast) {
         setDetailsFragment(podcast)
@@ -103,7 +113,7 @@ class MainActivity : MvpAppCompatActivity(),
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.navigation_account -> {
-                    if (tokenService.getToken() == null) {
+                    if (tokenInteractor.getToken() == null) {
                         val fragment = LoginFragment()
                         setFragment(fragment)
                     } else {

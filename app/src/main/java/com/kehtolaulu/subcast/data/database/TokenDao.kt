@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.database
+package com.kehtolaulu.subcast.data.database
 
 import androidx.room.*
 import com.kehtolaulu.subcast.domain.feature.login.Token

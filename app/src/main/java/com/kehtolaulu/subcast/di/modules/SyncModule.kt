@@ -1,10 +1,8 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.content.Context
-import com.kehtolaulu.subcast.database.TokenDao
+import com.kehtolaulu.subcast.data.interactor.*
 import com.kehtolaulu.subcast.di.scope.SyncScope
-import com.kehtolaulu.subcast.presenters.SyncPresenter
-import com.kehtolaulu.subcast.services.TokenService
+import com.kehtolaulu.subcast.presentation.feature.sync.presenter.SyncPresenter
 import dagger.Module
 import dagger.Provides
 
@@ -12,10 +10,20 @@ import dagger.Provides
 class SyncModule {
     @SyncScope
     @Provides
-    fun provideTokenService(tokenDao: TokenDao, context: Context): TokenService =
-        TokenService(tokenDao, context)
-
-    @SyncScope
-    @Provides
-    fun provideSyncPresenter(tokenService: TokenService) : SyncPresenter = SyncPresenter(tokenService)
+    fun provideSyncPresenter(
+        tokenInteractor: TokenInteractor,
+        syncInteractor: SyncInteractor,
+        podcastsInteractor: PodcastsInteractor,
+        episodesInteractor: EpisodesInteractor,
+        interactor: DatabaseInteractor,
+        rssInteractor: RssInteractor
+    ): SyncPresenter =
+        SyncPresenter(
+            tokenInteractor,
+            syncInteractor,
+            podcastsInteractor,
+            episodesInteractor,
+            interactor,
+            rssInteractor
+        )
 }

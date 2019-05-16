@@ -1,28 +1,28 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.main.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.services.EpisodesService
-import com.kehtolaulu.subcast.services.PodcastsService
-import com.kehtolaulu.subcast.views.MainView
+import com.kehtolaulu.subcast.data.interactor.EpisodesInteractor
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.feature.main.view.MainView
 
 @InjectViewState
-class MainPresenter(private val episodesService: EpisodesService, private val podcastsService: PodcastsService) :
+class MainPresenter(private val episodesInteractor: EpisodesInteractor, private val podcastsInteractor: PodcastsInteractor) :
     MvpPresenter<MainView>() {
 
     fun download(episode: Episode) {
-        episodesService.download(episode)
+        episodesInteractor.download(episode)
     }
 
     fun listenLater(episode: Episode) {
-        episodesService.listenLater(episode)
+        episodesInteractor.listenLater(episode)
         viewState.showSuccess("added to listen later")
     }
 
     fun subscribe(podcast: Podcast) {
-        podcastsService.subscribe(podcast)
+        podcastsInteractor.subscribe(podcast)
         viewState.showSuccess("added to favourites")
     }
 }

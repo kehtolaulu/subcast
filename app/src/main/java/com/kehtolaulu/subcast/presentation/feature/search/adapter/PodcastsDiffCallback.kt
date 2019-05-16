@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.utils
+package com.kehtolaulu.subcast.presentation.feature.search.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.kehtolaulu.subcast.domain.feature.search.Podcast

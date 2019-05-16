@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.download.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -11,26 +11,18 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
-import com.kehtolaulu.subcast.adapters.DownloadsAdapter
 import com.kehtolaulu.subcast.di.components.DaggerDownloadComponent
 import com.kehtolaulu.subcast.di.modules.DownloadModule
-import com.kehtolaulu.subcast.entities.Episode
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.presentation.feature.download.adapter.DownloadsAdapter
 import com.kehtolaulu.subcast.presentation.feature.download.presenter.DownloadsPresenter
 import com.kehtolaulu.subcast.presentation.feature.download.view.DownloadsView
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_downloads.view.*
 import javax.inject.Inject
 
 class DownloadsFragment : MvpAppCompatFragment(),
     DownloadsView {
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        initDagger()
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     @Inject
     @InjectPresenter
@@ -40,6 +32,15 @@ class DownloadsFragment : MvpAppCompatFragment(),
     fun providePresenter(): DownloadsPresenter = presenter
 
     private var adapter: DownloadsAdapter? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        initDagger()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun updateAdapter() {
         presenter.updateAdapter()

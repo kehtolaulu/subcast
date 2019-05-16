@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.login.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -15,11 +15,20 @@ import com.kehtolaulu.subcast.di.components.DaggerLoginComponent
 import com.kehtolaulu.subcast.di.modules.LoginModule
 import com.kehtolaulu.subcast.presentation.feature.login.presenter.LoginPresenter
 import com.kehtolaulu.subcast.presentation.feature.login.view.LoginView
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 import javax.inject.Inject
 
 class LoginFragment : MvpAppCompatFragment(), LoginView {
+
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: LoginPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): LoginPresenter = presenter
+
     override fun showSuccess() {
         Toast.makeText(activity, "Ok! Now sign in!", Toast.LENGTH_SHORT).show()
     }
@@ -33,13 +42,6 @@ class LoginFragment : MvpAppCompatFragment(), LoginView {
         Toast.makeText(activity, text, Toast.LENGTH_SHORT).show()
     }
 
-    @Inject
-    @InjectPresenter
-    lateinit var presenter: LoginPresenter
-
-    @ProvidePresenter
-    fun providePresenter(): LoginPresenter = presenter
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         initDagger()
@@ -51,10 +53,6 @@ class LoginFragment : MvpAppCompatFragment(), LoginView {
             .loginModule(LoginModule())
             .build()
             .inject(this)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -70,10 +68,6 @@ class LoginFragment : MvpAppCompatFragment(), LoginView {
             )
         }
         return view
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 
     companion object {

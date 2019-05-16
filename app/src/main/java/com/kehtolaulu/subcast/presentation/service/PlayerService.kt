@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.data.service
+package com.kehtolaulu.subcast.presentation.service
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -15,8 +15,8 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.domain.feature.details.Episode
-import com.kehtolaulu.subcast.presentation.extensions.showToast
 import com.kehtolaulu.subcast.helpers.*
+import com.kehtolaulu.subcast.presentation.extensions.showToast
 import com.kehtolaulu.subcast.presentation.feature.player.activity.PlayerActivity
 import java.io.IOException
 import java.util.LinkedList
@@ -210,22 +210,6 @@ class PlayerService : Service() {
     private fun getCurrentPosition() =
         if (prepared) mediaPlayer.currentPosition / 1000 else 0
 
-    inner class PlayerServiceBinder : Binder() {
-        fun isPlaying() = this@PlayerService.isPlaying
-        fun next() = this@PlayerService.next()
-        fun previous() = this@PlayerService.previous()
-        fun getCurrentPosition() = this@PlayerService.getCurrentPosition()
-        fun seekTo(seconds: Int) = this@PlayerService.seekTo(seconds)
-        fun playOrPauseEpisode(episode: Episode? = null) = this@PlayerService.playOrPauseEpisode(episode)
-        fun stopService() = this@PlayerService.stopForegroundService()
-        fun getActiveEpisode() = this@PlayerService.activeEpisode
-        fun setEpisodeList(episodes: List<Episode>) {
-            this@PlayerService.toPlay = episodes
-        }
-
-        fun playFrom(episode: Episode, time: Int) = this@PlayerService.playFrom(episode, time)
-    }
-
     private fun playFrom(episode: Episode, time: Int, addToHistory: Boolean = true) {
         try {
             if (episode == null) {
@@ -270,6 +254,21 @@ class PlayerService : Service() {
         }
     }
 
+    inner class PlayerServiceBinder : Binder() {
+        fun isPlaying() = this@PlayerService.isPlaying
+        fun next() = this@PlayerService.next()
+        fun previous() = this@PlayerService.previous()
+        fun getCurrentPosition() = this@PlayerService.getCurrentPosition()
+        fun seekTo(seconds: Int) = this@PlayerService.seekTo(seconds)
+        fun playOrPauseEpisode(episode: Episode? = null) = this@PlayerService.playOrPauseEpisode(episode)
+        fun stopService() = this@PlayerService.stopForegroundService()
+        fun getActiveEpisode() = this@PlayerService.activeEpisode
+        fun setEpisodeList(episodes: List<Episode>) {
+            this@PlayerService.toPlay = episodes
+        }
+
+        fun playFrom(episode: Episode, time: Int) = this@PlayerService.playFrom(episode, time)
+    }
 
     companion object {
         private const val CHANNEL_ID = "MUSIC_PLAYER_CHANNEL_ID"

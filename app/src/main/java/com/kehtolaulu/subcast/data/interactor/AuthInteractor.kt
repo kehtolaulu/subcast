@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.services
+package com.kehtolaulu.subcast.data.interactor
 
 import com.kehtolaulu.subcast.data.network.SubcastApi
 import com.kehtolaulu.subcast.domain.feature.login.LoginResponse

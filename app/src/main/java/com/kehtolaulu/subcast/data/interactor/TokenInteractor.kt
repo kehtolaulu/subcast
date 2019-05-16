@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.services
+package com.kehtolaulu.subcast.data.interactor
 
 import android.content.Context
 import com.kehtolaulu.subcast.data.database.TokenDao

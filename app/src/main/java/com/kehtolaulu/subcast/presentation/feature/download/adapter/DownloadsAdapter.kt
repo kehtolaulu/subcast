@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.adapters
+package com.kehtolaulu.subcast.presentation.feature.download.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.domain.feature.details.Episode
-import com.kehtolaulu.subcast.extensions.toMinutesSecondsFormat
+import com.kehtolaulu.subcast.presentation.extensions.toMinutesSecondsFormat
 import com.kehtolaulu.subcast.presentation.feature.details.adapter.EpisodesDiffCallback
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.card_episode.*
 
-open class DownloadsAdapter : ListAdapter<Episode, DownloadsAdapter.EpisodeViewHolder>(EpisodesDiffCallback()) {
+open class DownloadsAdapter : ListAdapter<Episode, DownloadsAdapter.EpisodeViewHolder>(
+    EpisodesDiffCallback()
+) {
 
     var listItemClickListener: DownloadOnClickListener? = null
     var episodesList: ArrayList<Episode>? = null

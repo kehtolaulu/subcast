@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.entities
+package com.kehtolaulu.subcast.domain.feature.login
 
 import androidx.annotation.NonNull
 import androidx.room.Entity

@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.details.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -12,18 +12,28 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
 import com.kehtolaulu.subcast.R
-import com.kehtolaulu.subcast.adapters.EpisodesAdapter
 import com.kehtolaulu.subcast.di.components.DaggerDetailsComponent
 import com.kehtolaulu.subcast.di.modules.DetailsModule
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.entities.Podcast
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
 import com.kehtolaulu.subcast.helpers.ARG_PODCAST_ID
+import com.kehtolaulu.subcast.presentation.feature.details.adapter.EpisodesAdapter
 import com.kehtolaulu.subcast.presentation.feature.details.presenter.DetailsPresenter
 import com.kehtolaulu.subcast.presentation.feature.details.view.DetailsView
+import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import kotlinx.android.synthetic.main.fragment_details.view.*
 import javax.inject.Inject
 
 class DetailsFragment : MvpAppCompatFragment(), DetailsView {
+
+    @Inject
+    @InjectPresenter
+    lateinit var presenter: DetailsPresenter
+
+    @ProvidePresenter
+    fun providePresenter(): DetailsPresenter = presenter
+
+    var thisPodcast: Podcast? = null
 
     private var adapter: EpisodesAdapter? = null
 
@@ -55,7 +65,7 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
     }
 
     private fun addPodcastId(list: List<Episode>) {
-        list.map{
+        list.map {
             it.podcastId = thisPodcast?.id
         }
     }
@@ -70,15 +80,6 @@ class DetailsFragment : MvpAppCompatFragment(), DetailsView {
     override fun showError(error: Throwable) {
         Toast.makeText(activity, error.message, Toast.LENGTH_SHORT).show()
     }
-
-    @Inject
-    @InjectPresenter
-    lateinit var presenter: DetailsPresenter
-
-    @ProvidePresenter
-    fun providePresenter(): DetailsPresenter = presenter
-
-    var thisPodcast: Podcast? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

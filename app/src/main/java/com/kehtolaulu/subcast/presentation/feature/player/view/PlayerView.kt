@@ -1,7 +1,7 @@
-package com.kehtolaulu.subcast.views
+package com.kehtolaulu.subcast.presentation.feature.player.view
 
 import com.arellomobile.mvp.MvpView
-import com.kehtolaulu.subcast.entities.Episode
+import com.kehtolaulu.subcast.domain.feature.details.Episode
 
 interface PlayerView : MvpView {
     fun showEpisode(episode: Episode)

@@ -1,10 +1,10 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.sync.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.entities.Podcast
-import com.kehtolaulu.subcast.services.*
-import com.kehtolaulu.subcast.views.SyncView
+import com.kehtolaulu.subcast.data.interactor.*
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
+import com.kehtolaulu.subcast.presentation.feature.sync.view.SyncView
 import com.pkmmte.pkrss.Article
 import com.pkmmte.pkrss.Callback
 import io.reactivex.Single
@@ -14,20 +14,20 @@ import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class SyncPresenter(
-    private val tokenService: TokenService,
-    private val syncService: SyncService,
-    private val podcastsService: PodcastsService,
-    private val episodesService: EpisodesService,
-    private val deleter: DatabaseDeleter,
-    private val rssDealer: RssDealer
+    private val tokenInteractor: TokenInteractor,
+    private val syncInteractor: SyncInteractor,
+    private val podcastsInteractor: PodcastsInteractor,
+    private val episodesInteractor: EpisodesInteractor,
+    private val interactor: DatabaseInteractor,
+    private val rssInteractor: RssInteractor
 ) :
     MvpPresenter<SyncView>() {
 
     private val compositeDisposable = CompositeDisposable()
 
     fun signOut() {
-        tokenService.deleteToken()
-        val disposable = deleter.clearData().subscribeOn(Schedulers.io())
+        tokenInteractor.deleteToken()
+        val disposable = interactor.clearData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ viewState.showSuccess() }, { viewState.showError("error when clearing data") })
         viewState.setLoginFragment()
@@ -35,28 +35,28 @@ class SyncPresenter(
     }
 
     private fun getPodcastById(id: Int): Single<Podcast?> {
-        return podcastsService.getPodcastById(id).subscribeOn(Schedulers.io())
+        return podcastsInteractor.getPodcastById(id).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun sync() {
-        val disposable1 = syncService.syncSubscriptions().subscribeOn(Schedulers.io())
+        val disposable1 = syncInteractor.syncSubscriptions().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 response.subscriptions?.forEach {
                     getPodcastById(it.id).subscribe { podcast ->
-                        podcast?.let { it1 -> podcastsService.insertPodcast(it1) }
+                        podcast?.let { it1 -> podcastsInteractor.insertPodcast(it1) }
                     }
                 }
                 viewState.showSuccess()
             },
                 { viewState.showError("no internet") })
 
-        val disposable2 = syncService.syncLater().subscribeOn(Schedulers.io())
+        val disposable2 = syncInteractor.syncLater().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 response.list?.forEach { episode ->
-                    episodesService
+                    episodesInteractor
                         .getEpisodeById(episode.id)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -64,7 +64,7 @@ class SyncPresenter(
                             episode.podcastId?.let { id ->
                                 getPodcastById(id).subscribe { podcast ->
                                     if (podcast != null) {
-                                        rssDealer.getPodcastEpisodes(podcast)?.callback(object : Callback {
+                                        rssInteractor.getPodcastEpisodes(podcast)?.callback(object : Callback {
                                             override fun onLoadFailed() {
                                                 println("failed")
                                             }
@@ -77,7 +77,7 @@ class SyncPresenter(
                                                 println("loaded")
                                                 newArticles?.filter { article ->
                                                     episodeById.id == (article.author + article.title).hashCode().toString()
-                                                }?.map { _ -> episodesService.listenLater(episodeById) }
+                                                }?.map { _ -> episodesInteractor.listenLater(episodeById) }
                                             }
                                         })?.async()
                                     }
@@ -89,11 +89,11 @@ class SyncPresenter(
             },
                 { viewState.showError("no internet") })
 
-        val disposable3 = syncService.syncProgress().subscribeOn(Schedulers.io())
+        val disposable3 = syncInteractor.syncProgress().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 response.progress?.forEach(
-                    episodesService::insertEpisode
+                    episodesInteractor::insertEpisode
                 )
                 viewState.showSuccess()
             }, { viewState.showError("no internet") })

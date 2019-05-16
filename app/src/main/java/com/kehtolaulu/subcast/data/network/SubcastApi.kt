@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.api
+package com.kehtolaulu.subcast.data.network
 
 import com.kehtolaulu.subcast.domain.feature.favourites.StatusResponse
 import com.kehtolaulu.subcast.domain.feature.favourites.SubscriptionsRequest

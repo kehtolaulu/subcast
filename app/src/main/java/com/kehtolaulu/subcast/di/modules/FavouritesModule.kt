@@ -1,22 +1,20 @@
 package com.kehtolaulu.subcast.di.modules
 
-import com.kehtolaulu.subcast.api.ItunesApi
-import com.kehtolaulu.subcast.api.SubcastApi
-import com.kehtolaulu.subcast.database.PodcastDao
 import com.kehtolaulu.subcast.di.scope.FavouritesScope
-import com.kehtolaulu.subcast.presenters.FavouritesPresenter
-import com.kehtolaulu.subcast.services.PodcastsService
+import com.kehtolaulu.subcast.presentation.feature.favourites.presenter.FavouritesPresenter
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
 import dagger.Module
 import dagger.Provides
 
 @Module
 class FavouritesModule {
-    @FavouritesScope
-    @Provides
-    fun providePodcastsService(itunesApi: ItunesApi, podcastDao: PodcastDao, subcastApi: SubcastApi): PodcastsService =
-        PodcastsService(itunesApi, podcastDao, subcastApi)
+//    @FavouritesScope
+//    @Provides
+//    fun providePodcastsService(itunesApi: ItunesApi, podcastDao: PodcastDao, subcastApi: SubcastApi): PodcastsInteractor =
+//        PodcastsInteractor(itunesApi, podcastDao, subcastApi)
 
     @FavouritesScope
     @Provides
-    fun providePresenter(service: PodcastsService): FavouritesPresenter = FavouritesPresenter(service)
+    fun providePresenter(interactor: PodcastsInteractor): FavouritesPresenter =
+        FavouritesPresenter(interactor)
 }

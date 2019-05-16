@@ -1,13 +1,10 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.content.Context
 import com.facebook.stetho.okhttp3.StethoInterceptor
-import com.kehtolaulu.subcast.api.ApiKeyInterceptor
-import com.kehtolaulu.subcast.api.SubcastApi
-import com.kehtolaulu.subcast.constants.ITUNES_URL
-import com.kehtolaulu.subcast.constants.SUBCAST_URL
-import com.kehtolaulu.subcast.database.TokenDao
-import com.kehtolaulu.subcast.services.TokenService
+import com.kehtolaulu.subcast.data.network.ApiKeyInterceptor
+import com.kehtolaulu.subcast.helpers.ITUNES_URL
+import com.kehtolaulu.subcast.helpers.SUBCAST_URL
+import com.kehtolaulu.subcast.data.interactor.TokenInteractor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -20,14 +17,11 @@ import javax.inject.Singleton
 
 @Module
 class NetModule {
-    @Provides
-    fun provideTokenService(dao: TokenDao, context: Context): TokenService =
-        TokenService(dao, context)
 
     @Provides
     @Singleton
     @Named(NAME_API_KEY)
-    fun provideApiKeyInterceptor(service: TokenService): Interceptor = ApiKeyInterceptor.create(service)
+    fun provideApiKeyInterceptor(interactor: TokenInteractor): ApiKeyInterceptor = ApiKeyInterceptor.create(interactor) as ApiKeyInterceptor
 
     @Provides
     @Singleton
@@ -39,10 +33,10 @@ class NetModule {
     @Named(SUBCAST_RETROFIT)
     fun provideSubcastOkHttpClient(
         @Named(NAME_STETHO) stethoInterceptor: Interceptor,
-        @Named(NAME_API_KEY) apiKeyInterceptor: Interceptor
+        @Named(NAME_API_KEY) apiKeyInterceptor: ApiKeyInterceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(stethoInterceptor)
+            .addNetworkInterceptor(stethoInterceptor)
             .addInterceptor(apiKeyInterceptor)
             .build()
 
@@ -53,7 +47,7 @@ class NetModule {
         @Named(NAME_STETHO) stethoInterceptor: Interceptor
     ): OkHttpClient =
         OkHttpClient.Builder()
-            .addInterceptor(stethoInterceptor)
+            .addNetworkInterceptor(stethoInterceptor)
             .build()
 
     @Provides

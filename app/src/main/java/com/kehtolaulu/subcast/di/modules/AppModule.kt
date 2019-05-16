@@ -1,33 +1,31 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.app.Application
 import android.content.Context
-import android.content.Intent
 import androidx.room.Room
-import com.kehtolaulu.subcast.database.EpisodeDao
-import com.kehtolaulu.subcast.database.AppDatabase
-import com.kehtolaulu.subcast.database.AppDatabase.Companion.DATABASE_NAME
-import com.kehtolaulu.subcast.database.PodcastDao
-import com.kehtolaulu.subcast.database.TokenDao
-import com.kehtolaulu.subcast.di.scope.DetailsScope
-import com.kehtolaulu.subcast.services.PlayerService
-import com.kehtolaulu.subcast.services.PlayerServiceConnection
-import com.kehtolaulu.subcast.services.RssDealer
+import com.kehtolaulu.subcast.MyApplication
+import com.kehtolaulu.subcast.data.database.AppDatabase
+import com.kehtolaulu.subcast.data.database.AppDatabase.Companion.DATABASE_NAME
+import com.kehtolaulu.subcast.data.database.EpisodeDao
+import com.kehtolaulu.subcast.data.database.PodcastDao
+import com.kehtolaulu.subcast.data.database.TokenDao
+import com.kehtolaulu.subcast.data.interactor.DatabaseInteractor
+import com.kehtolaulu.subcast.data.interactor.RssInteractor
 import com.pkmmte.pkrss.PkRSS
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
 @Module
-class AppModule(private var context: Context) {
+class AppModule {
 
     @Provides
     @Singleton
-    fun provideContext(): Context = context
+    fun provideContext(application: MyApplication): Context = application.applicationContext
 
     @Provides
     @Singleton
-    fun provideRssDealer(context: Context): RssDealer = RssDealer(PkRSS.with(context))
+    fun provideRssDealer(context: Context): RssInteractor =
+        RssInteractor(PkRSS.with(context))
 
     @Provides
     @Singleton
@@ -47,15 +45,9 @@ class AppModule(private var context: Context) {
     @Singleton
     fun providePodcastDao(db: AppDatabase): PodcastDao = db.getPodcastDao()
 
+    @Provides
     @Singleton
-    @Provides
-    fun provideServiceConnection(): PlayerServiceConnection {
-        return PlayerServiceConnection()
-    }
-
-    @Provides
-    fun provideServiceIntent(app: Application): Intent {
-        return Intent(app, PlayerService::class.java)
-    }
+    fun provideDeleter(db: AppDatabase): DatabaseInteractor =
+        DatabaseInteractor(db)
 
 }

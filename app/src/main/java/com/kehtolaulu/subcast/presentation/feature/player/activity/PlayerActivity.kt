@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.ui
+package com.kehtolaulu.subcast.presentation.feature.player.activity
 
 import android.media.MediaMetadataRetriever
 import android.os.Bundle
@@ -10,10 +10,10 @@ import com.kehtolaulu.subcast.MyApplication
 import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.di.components.DaggerPlayerComponent
 import com.kehtolaulu.subcast.di.modules.PlayerModule
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.extensions.asyncOnMainThread
-import com.kehtolaulu.subcast.extensions.showToast
-import com.kehtolaulu.subcast.extensions.toMinutesSecondsFormat
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.presentation.extensions.asyncOnMainThread
+import com.kehtolaulu.subcast.presentation.extensions.showToast
+import com.kehtolaulu.subcast.presentation.extensions.toMinutesSecondsFormat
 import com.kehtolaulu.subcast.presentation.feature.player.presenter.PlayerPresenter
 import com.kehtolaulu.subcast.presentation.feature.player.view.PlayerView
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,15 +22,6 @@ import kotlinx.android.synthetic.main.content_player.*
 import javax.inject.Inject
 
 class PlayerActivity : MvpAppCompatActivity(), PlayerView {
-
-    override fun updatePlayingEpisode(episode: Episode?) {
-        episode?.let { presenter.showEpisode(it) }
-    }
-
-    override fun updatePosition(currentPosition: Int) {
-        seekBar.progress = currentPosition
-        tv_progress.text = currentPosition.toMinutesSecondsFormat()
-    }
 
     @Inject
     @InjectPresenter
@@ -41,6 +32,15 @@ class PlayerActivity : MvpAppCompatActivity(), PlayerView {
 
     var episodes: List<Episode>? = null
     var index: Int? = 0
+
+    override fun updatePlayingEpisode(episode: Episode?) {
+        episode?.let { presenter.showEpisode(it) }
+    }
+
+    override fun updatePosition(currentPosition: Int) {
+        seekBar.progress = currentPosition
+        tv_progress.text = currentPosition.toMinutesSecondsFormat()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initDagger()
@@ -60,12 +60,6 @@ class PlayerActivity : MvpAppCompatActivity(), PlayerView {
                         presenter.playOrPauseEpisode(episode)
                     }
                 }
-
-//        if (checkProgress != null) {
-//            episode.progress?.let { presenter.playFromPosition(episode, it) }
-//        } else {
-//            presenter.playOrPauseEpisode(episode)
-//        }
         index = episodes?.indexOf(episode)
         btn_next.setOnClickListener {
             presenter.playNext()

@@ -1,10 +1,10 @@
-package com.kehtolaulu.subcast.services
+package com.kehtolaulu.subcast.data.interactor
 
 import android.content.Context
 import android.util.Log
 import com.kehtolaulu.subcast.data.network.DownloadApi
 import com.kehtolaulu.subcast.domain.feature.details.Episode
-import com.kehtolaulu.subcast.extensions.showToast
+import com.kehtolaulu.subcast.presentation.extensions.showToast
 import com.kehtolaulu.subcast.helpers.BYTE_ARRAY_SIZE
 import okhttp3.ResponseBody
 import retrofit2.Call

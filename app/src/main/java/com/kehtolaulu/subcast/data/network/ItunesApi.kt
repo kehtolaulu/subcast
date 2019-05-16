@@ -1,4 +1,4 @@
-package com.kehtolaulu.subcast.api
+package com.kehtolaulu.subcast.data.network
 
 import com.kehtolaulu.subcast.domain.feature.search.PodcastResponse
 import io.reactivex.Single

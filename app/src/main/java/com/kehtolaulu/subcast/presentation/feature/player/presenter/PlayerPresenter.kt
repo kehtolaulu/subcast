@@ -1,18 +1,18 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.player.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.entities.Episode
-import com.kehtolaulu.subcast.extensions.asyncOnMainThread
-import com.kehtolaulu.subcast.services.EpisodesService
-import com.kehtolaulu.subcast.services.PlayerServiceConnection
-import com.kehtolaulu.subcast.views.PlayerView
+import com.kehtolaulu.subcast.data.interactor.EpisodesInteractor
+import com.kehtolaulu.subcast.domain.feature.details.Episode
+import com.kehtolaulu.subcast.presentation.extensions.asyncOnMainThread
+import com.kehtolaulu.subcast.presentation.feature.player.view.PlayerView
+import com.kehtolaulu.subcast.presentation.service.PlayerServiceConnection
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.delay
 
 @InjectViewState
-class PlayerPresenter(private val service: EpisodesService, private val serviceConnection: PlayerServiceConnection) :
+class PlayerPresenter(private val interactor: EpisodesInteractor, private val serviceConnection: PlayerServiceConnection) :
     MvpPresenter<PlayerView>() {
 
     private val compositeDisposable = CompositeDisposable()
@@ -24,17 +24,7 @@ class PlayerPresenter(private val service: EpisodesService, private val serviceC
     }
 
     fun checkProgress(episode: Episode): Single<Episode> {
-        var progress: Int? = null
-        return service.getEpisodeById(episode.id)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({ it ->
-//                if (it.progress != null) {
-//                    progress = it.progress
-//                }
-//            }, { _ -> progress = null })
-//        compositeDisposable.add(disposable)
-//        return progress
+        return interactor.getEpisodeById(episode.id)
     }
 
     fun showEpisode(episode: Episode) {
@@ -104,7 +94,7 @@ class PlayerPresenter(private val service: EpisodesService, private val serviceC
     fun saveProgress() {
         asyncOnMainThread {
             serviceConnection.getPlayer().getActiveEpisode()?.let {
-                service.saveProgress(
+                interactor.saveProgress(
                     it,
                     serviceConnection.getPlayer().getCurrentPosition()
                 )

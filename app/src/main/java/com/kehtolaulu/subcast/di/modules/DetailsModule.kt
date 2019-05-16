@@ -1,38 +1,32 @@
 package com.kehtolaulu.subcast.di.modules
 
-import android.content.Context
-import com.kehtolaulu.subcast.api.ItunesApi
-import com.kehtolaulu.subcast.api.SubcastApi
-import com.kehtolaulu.subcast.database.EpisodeDao
-import com.kehtolaulu.subcast.database.PodcastDao
 import com.kehtolaulu.subcast.di.scope.DetailsScope
-import com.kehtolaulu.subcast.di.scope.SearchScope
-import com.kehtolaulu.subcast.presenters.DetailsPresenter
-import com.kehtolaulu.subcast.services.EpisodesService
-import com.kehtolaulu.subcast.services.PodcastsService
-import com.kehtolaulu.subcast.services.RssDealer
+import com.kehtolaulu.subcast.presentation.feature.details.presenter.DetailsPresenter
+import com.kehtolaulu.subcast.data.interactor.EpisodesInteractor
+import com.kehtolaulu.subcast.data.interactor.PodcastsInteractor
+import com.kehtolaulu.subcast.data.interactor.RssInteractor
 import dagger.Module
 import dagger.Provides
 
 @Module
 class DetailsModule {
 
-    @DetailsScope
-    @Provides
-    fun provideEpisodeService(dao: EpisodeDao, api: SubcastApi): EpisodesService =
-        EpisodesService(dao, api)
-
-    @DetailsScope
-    @Provides
-    fun providePodcastsService(itunesApi: ItunesApi, dao: PodcastDao, subcastApi: SubcastApi): PodcastsService =
-        PodcastsService(itunesApi, dao, subcastApi)
+//    @DetailsScope
+//    @Provides
+//    fun provideEpisodeService(dao: EpisodeDao, api: SubcastApi): EpisodesInteractor =
+//        EpisodesInteractor(dao, api)
+//
+//    @DetailsScope
+//    @Provides
+//    fun providePodcastsService(itunesApi: ItunesApi, dao: PodcastDao, subcastApi: SubcastApi): PodcastsInteractor =
+//        PodcastsInteractor(itunesApi, dao, subcastApi)
 
     @DetailsScope
     @Provides
     fun providePresenter(
-        episodesService: EpisodesService,
-        podcastsService: PodcastsService,
-        rssDealer: RssDealer
+        episodesInteractor: EpisodesInteractor,
+        podcastsInteractor: PodcastsInteractor,
+        rssInteractor: RssInteractor
     ): DetailsPresenter =
-        DetailsPresenter(episodesService, podcastsService, rssDealer)
+        DetailsPresenter(podcastsInteractor, rssInteractor)
 }

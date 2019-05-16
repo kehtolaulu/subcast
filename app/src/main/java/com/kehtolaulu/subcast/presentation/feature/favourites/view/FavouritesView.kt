@@ -1,9 +1,9 @@
-package com.kehtolaulu.subcast.views
+package com.kehtolaulu.subcast.presentation.feature.favourites.view
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
-import com.kehtolaulu.subcast.entities.Podcast
+import com.kehtolaulu.subcast.domain.feature.search.Podcast
 
 @StateStrategyType(AddToEndSingleStrategy::class)
 interface FavouritesView : MvpView {

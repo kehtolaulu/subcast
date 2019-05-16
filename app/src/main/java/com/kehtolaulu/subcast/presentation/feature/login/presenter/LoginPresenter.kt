@@ -1,24 +1,24 @@
-package com.kehtolaulu.subcast.presenters
+package com.kehtolaulu.subcast.presentation.feature.login.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.kehtolaulu.subcast.services.AuthService
-import com.kehtolaulu.subcast.services.TokenService
-import com.kehtolaulu.subcast.views.LoginView
+import com.kehtolaulu.subcast.data.interactor.AuthInteractor
+import com.kehtolaulu.subcast.data.interactor.TokenInteractor
+import com.kehtolaulu.subcast.presentation.feature.login.view.LoginView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 @InjectViewState
 class LoginPresenter(
-    private val tokenService: TokenService,
-    private val authService: AuthService
+    private val tokenInteractor: TokenInteractor,
+    private val authInteractor: AuthInteractor
 ) :
     MvpPresenter<LoginView>() {
     private val compositeDisposable = CompositeDisposable()
 
     fun login(username: String, password: String) {
-        val disposable = authService.login(username, password)
+        val disposable = authInteractor.login(username, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
@@ -26,7 +26,7 @@ class LoginPresenter(
                     viewState.showError(it.errorMessage.toString())
                 } else {
                     viewState.setSyncFragment()
-                    tokenService.saveToken(it.token.toString())
+                    tokenInteractor.saveToken(it.token.toString())
                 }
             }, { viewState.showError("no internet") }
             )
@@ -39,7 +39,7 @@ class LoginPresenter(
         } else if (password.length < 4) {
             viewState.showError("password must be 4+ symbols")
         }
-        val disposable = authService.register(username, password)
+        val disposable = authInteractor.register(username, password)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ it ->
