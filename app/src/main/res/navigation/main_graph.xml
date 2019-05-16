@@ -5,7 +5,7 @@
             app:startDestination="@id/navigation_downloads">
     <fragment
             android:id="@+id/navigation_downloads"
-            android:name="com.kehtolaulu.subcast.ui.DownloadsFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.download.activity.DownloadsFragment"
             android:label="DownloadsFragment"/>
     <fragment
             android:id="@+id/navigation_queue"
@@ -13,20 +13,20 @@
             android:label="QueueFragment"/>
     <fragment
             android:id="@+id/navigation_favourites"
-            android:name="com.kehtolaulu.subcast.ui.FavouritesFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.favourites.activity.FavouritesFragment"
             android:label="FavouritesFragment">
     </fragment>
     <fragment
             android:id="@+id/navigation_later"
-            android:name="com.kehtolaulu.subcast.ui.LaterFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.playlater.activity.LaterFragment"
             android:label="LaterFragment"/>
     <fragment
             android:id="@+id/navigation_account"
-            android:name="com.kehtolaulu.subcast.ui.LoginFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.login.activity.LoginFragment"
             android:label="AccountFragment"/>
     <fragment
             android:id="@+id/navigation_search"
-            android:name="com.kehtolaulu.subcast.ui.SearchFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.search.activity.SearchFragment"
             android:label="SearchFragment">
         <action
                 android:id="@+id/action_to_podcast_details"
@@ -34,6 +34,6 @@
     </fragment>
     <fragment
             android:id="@+id/fragment_details"
-            android:name="com.kehtolaulu.subcast.ui.DetailsFragment"
+            android:name="com.kehtolaulu.subcast.presentation.feature.details.activity.DetailsFragment"
             android:label="DetailsFragment"/>
 </navigation>

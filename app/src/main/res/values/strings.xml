@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">subcast</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="channel_name">Player Notification</string>
+    <string name="channel_description">Notification widget for Music Player</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="queue">Queue</string>
     <string name="favourites">Favourites</string>
@@ -21,4 +21,5 @@
     <string name="password">Password</string>
     <string name="sign_up">sign up</string>
     <string name="unsubscribe">unsubscribe</string>
+    <string name="progress">progress</string>
 </resources>
