@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
 
-        <interactor android:name=".services.PlayerService"/>
+        <service android:name=".presentation.service.PlayerService"/>
 
     </application>
 
