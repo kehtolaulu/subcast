@@ -6,10 +6,10 @@
             android:icon="@drawable/downloads"
             android:title="@string/saved"/>
 
-    <item
-            android:id="@+id/navigation_queue"
-            android:icon="@drawable/queue"
-            android:title="@string/queue"/>
+    <!--<item-->
+            <!--android:id="@+id/navigation_queue"-->
+            <!--android:icon="@drawable/queue"-->
+            <!--android:title="@string/queue"/>-->
 
     <item
             android:id="@+id/navigation_favourites"
