@@ -53,13 +53,15 @@ class PlayerActivity : MvpAppCompatActivity(), PlayerView {
         presenter.showEpisode(episode)
         val checkProgress =
             presenter.checkProgress(episode).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe { it ->
+                .subscribe({ it ->
                     if (it.progress != null) {
                         presenter.playFromPosition(it, it.progress!!)
                     } else {
                         presenter.playOrPauseEpisode(episode)
                     }
-                }
+                }, {
+                    presenter.playOrPauseEpisode(episode)
+                })
         index = episodes?.indexOf(episode)
         btn_next.setOnClickListener {
             presenter.playNext()

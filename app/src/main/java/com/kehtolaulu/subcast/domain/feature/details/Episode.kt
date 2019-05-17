@@ -27,7 +27,7 @@ data class Episode(
     var progress: Int? = 0,
     @SerializedName("accountId")
     var accountId: Int? = null,
-    var isListenLater: Boolean? = null,
+    var isListenLater: Int? = null,
     @SerializedName("podcastId")
     var podcastId: Int? = null
 ) : Parcelable

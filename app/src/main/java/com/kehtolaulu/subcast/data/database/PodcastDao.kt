@@ -18,4 +18,6 @@ interface PodcastDao {
     @Query("SELECT * FROM podcast WHERE id = :id")
     fun getPodcastById(id: Int) : Single<Podcast>
 
+    @Query("DELETE FROM podcast")
+    fun clearTable()
 }

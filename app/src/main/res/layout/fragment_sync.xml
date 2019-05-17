@@ -8,14 +8,21 @@
 
     <!-- TODO: Update blank fragment layout -->
     <Button
-            android:text="sign out"
+            android:text="@string/sign_out"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btn_sign_out"
-            android:layout_marginTop="204dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginLeft="8dp" android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="479dp"/>
+            android:background="@drawable/my_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.498" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="221dp"/>
+    <TextView
+            android:text="@string/last_sync"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_sync" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginBottom="36dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_sign_out" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.5" android:textColor="@color/design_default_color_on_secondary"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

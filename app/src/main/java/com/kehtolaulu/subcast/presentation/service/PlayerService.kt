@@ -211,47 +211,8 @@ class PlayerService : Service() {
         if (prepared) mediaPlayer.currentPosition / 1000 else 0
 
     private fun playFrom(episode: Episode, time: Int, addToHistory: Boolean = true) {
-        try {
-            if (episode == null) {
-                playOrPause()
-            } else {
-                if (prepared) {
-                    prepared = false
-//                    mediaPlayer.reset()
-                }
-                if (episode.path == null) {
-                    mediaPlayer.setDataSource(episode.url)
-                } else {
-                    mediaPlayer.setDataSource(episode.path)
-                }
-                activeEpisode = episode
-                if (addToHistory)
-                    playedEpisodesIndexes.add(toPlay.indexOf(episode))
-                if (activeEpisode != null) {
-                    with(mediaPlayer) {
-                        if (isPlaying) {
-                            pause()
-                        } else {
-                            if (!prepared) {
-                                prepare()
-                                prepared = true
-                            }
-                            start()
-                            seekTo(time)
-                        }
-                    }
-                    updateIsPlaying()
-                    setupNotification()
-                } else {
-                    showToast(FILE_NOT_FOUND)
-                }
-            }
-        } catch (e: IOException) {
-            showToast(FILE_NOT_FOUND)
-            activeEpisode = null
-            prepared = false
-            mediaPlayer.reset()
-        }
+        playOrPauseEpisode(episode)
+        seekTo(time)
     }
 
     inner class PlayerServiceBinder : Binder() {

@@ -10,8 +10,6 @@ import com.kehtolaulu.subcast.domain.feature.details.Episode
 import com.kehtolaulu.subcast.presentation.extensions.toMinutesSecondsFormat
 import com.kehtolaulu.subcast.presentation.feature.details.adapter.EpisodesDiffCallback
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.card_episode.btn_to_downloads
-import kotlinx.android.synthetic.main.card_episode.txt_name
 import kotlinx.android.synthetic.main.card_later.*
 
 open class LaterAdapter : ListAdapter<Episode, LaterAdapter.EpisodeViewHolder>(
@@ -63,6 +61,10 @@ open class LaterAdapter : ListAdapter<Episode, LaterAdapter.EpisodeViewHolder>(
                 tv_progress.text = episode.progress!!.toMinutesSecondsFormat()
             } else {
                 tv_progress.visibility = View.INVISIBLE
+            }
+
+            if (episode.path != null) {
+                btn_to_downloads.visibility = View.INVISIBLE
             }
 
             btn_to_downloads.setOnClickListener {

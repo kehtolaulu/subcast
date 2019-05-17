@@ -17,3 +17,4 @@ const val ACTION_PLAY_PAUSE = "ACTION_PLAY_PAUSE"
 
 const val FILE_NOT_FOUND = "File not found"
 fun isOreoPlus() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
+const val ERROR = "ERROR"

@@ -30,7 +30,7 @@ class LoginFragment : MvpAppCompatFragment(), LoginView {
     fun providePresenter(): LoginPresenter = presenter
 
     override fun showSuccess() {
-        Toast.makeText(activity, "Ok! Now sign in!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.success_sign_up), Toast.LENGTH_SHORT).show()
     }
 
     override fun setSyncFragment() {
@@ -68,10 +68,5 @@ class LoginFragment : MvpAppCompatFragment(), LoginView {
             )
         }
         return view
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = LoginFragment()
     }
 }

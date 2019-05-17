@@ -32,7 +32,7 @@ interface EpisodeDao {
     @Query("UPDATE episode SET isListenLater = 1 WHERE id = :id")
     fun listenLater(id: String)
 
-    @Query("SELECT * FROM episode WHERE isListenLater = 1")
+    @Query("SELECT * FROM episode WHERE isListenLater = 1 AND url IS NOT NULL")
     fun getListenLater() : Single<List<Episode>>
 
     @Query("UPDATE episode SET progress = :time WHERE id = :id")

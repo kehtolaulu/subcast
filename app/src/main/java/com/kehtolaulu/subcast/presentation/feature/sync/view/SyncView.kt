@@ -4,6 +4,6 @@ import com.arellomobile.mvp.MvpView
 
 interface SyncView : MvpView {
     fun setLoginFragment()
-    fun showSuccess()
+    fun showSuccess(message: String)
     fun showError(message: String)
 }

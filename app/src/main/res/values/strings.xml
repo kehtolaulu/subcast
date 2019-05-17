@@ -22,4 +22,20 @@
     <string name="sign_up">sign up</string>
     <string name="unsubscribe">unsubscribe</string>
     <string name="progress">progress</string>
+    <string name="last_sync">Last sync:</string>
+    <string name="sign_out">sign out</string>
+    <string name="success_download">file download success</string>
+    <string name="success_sign_up">OK! Now sign in!</string>
+    <string name="username_error">username must be 6+ symbols</string>
+    <string name="password_error">password must be 4+ symbols</string>
+    <string name="no_internet">no internet</string>
+    <string name="download_error">can\'t be downloaded</string>
+    <string name="sign_in_plz">Please log in first</string>
+    <string name="search_podcasts">Search podcasts</string>
+    <string name="later_success">added to listen later</string>
+    <string name="fav_success">added to favourites</string>
+    <string name="last_sync_was">Last sync: %1$s</string>
+    <string name="goodbye">goodbye</string>
+    <string name="clear_error">error when clearing data</string>
+    <string name="sync_success">successful sync</string>
 </resources>

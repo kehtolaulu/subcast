@@ -38,10 +38,6 @@ class DownloadsFragment : MvpAppCompatFragment(),
         initDagger()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun updateAdapter() {
         presenter.updateAdapter()
     }
@@ -79,9 +75,5 @@ class DownloadsFragment : MvpAppCompatFragment(),
             .downloadModule(DownloadModule())
             .build()
             .inject(this)
-    }
-
-    companion object {
-        fun newInstance() = DownloadsFragment()
     }
 }

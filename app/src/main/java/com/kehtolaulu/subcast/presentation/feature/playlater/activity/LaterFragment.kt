@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.kehtolaulu.subcast.MyApplication
@@ -18,10 +18,10 @@ import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import com.kehtolaulu.subcast.presentation.feature.playlater.adapter.LaterAdapter
 import com.kehtolaulu.subcast.presentation.feature.playlater.presenter.LaterPresenter
 import com.kehtolaulu.subcast.presentation.feature.playlater.view.LaterView
-import kotlinx.android.synthetic.main.fragment_downloads.view.*
+import kotlinx.android.synthetic.main.fragment_later.view.*
 import javax.inject.Inject
 
-class LaterFragment : Fragment(), LaterView {
+class LaterFragment : MvpAppCompatFragment(), LaterView {
 
     @Inject
     @InjectPresenter
@@ -64,18 +64,14 @@ class LaterFragment : Fragment(), LaterView {
             .inject(this)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(com.kehtolaulu.subcast.R.layout.fragment_downloads, container, false)
+        val view = inflater.inflate(com.kehtolaulu.subcast.R.layout.fragment_later, container, false)
         adapter = LaterAdapter()
-        val rv = view.recycler_downloads
+        val rv = view.recycler_later
         rv.adapter = adapter
         adapter?.listItemClickListener = activity as MainActivity
         rv.layoutManager = LinearLayoutManager(activity)
@@ -83,12 +79,4 @@ class LaterFragment : Fragment(), LaterView {
         return view
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    companion object {
-        @JvmStatic
-        fun newInstance() = LaterFragment()
-    }
 }

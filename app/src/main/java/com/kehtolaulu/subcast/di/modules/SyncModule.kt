@@ -1,5 +1,6 @@
 package com.kehtolaulu.subcast.di.modules
 
+import android.content.Context
 import com.kehtolaulu.subcast.data.interactor.*
 import com.kehtolaulu.subcast.di.scope.SyncScope
 import com.kehtolaulu.subcast.presentation.feature.sync.presenter.SyncPresenter
@@ -16,7 +17,7 @@ class SyncModule {
         podcastsInteractor: PodcastsInteractor,
         episodesInteractor: EpisodesInteractor,
         interactor: DatabaseInteractor,
-        rssInteractor: RssInteractor
+        context: Context
     ): SyncPresenter =
         SyncPresenter(
             tokenInteractor,
@@ -24,6 +25,6 @@ class SyncModule {
             podcastsInteractor,
             episodesInteractor,
             interactor,
-            rssInteractor
+            context
         )
 }

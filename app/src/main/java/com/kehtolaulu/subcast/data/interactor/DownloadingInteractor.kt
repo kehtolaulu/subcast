@@ -2,10 +2,11 @@ package com.kehtolaulu.subcast.data.interactor
 
 import android.content.Context
 import android.util.Log
+import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.data.network.DownloadApi
 import com.kehtolaulu.subcast.domain.feature.details.Episode
-import com.kehtolaulu.subcast.presentation.extensions.showToast
 import com.kehtolaulu.subcast.helpers.BYTE_ARRAY_SIZE
+import com.kehtolaulu.subcast.presentation.extensions.showToast
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
@@ -18,14 +19,14 @@ import kotlin.random.Random
 class DownloadingInteractor(private val api: DownloadApi, private val context: Context) {
 
     fun download(episode: Episode): String? {
-        var path: String? = null
+        var path: String?
         var fileName = context.filesDir?.absolutePath + File.separator + Random.nextInt(0, 1024102410) + ".mp3"
         episode.url?.let {
             api.downloadFileByUrl(it).enqueue(object : retrofit2.Callback<ResponseBody> {
                 override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if (response.isSuccessful) {
                         path = writeResponseBodyToDisk(response.body(), fileName)
-                        context.showToast("file download success")
+                        context.showToast(context.getString(R.string.success_download))
                         Log.d("TAG", "file download success? $path")
                     } else {
                         Log.d("TAG", "server contact failed")

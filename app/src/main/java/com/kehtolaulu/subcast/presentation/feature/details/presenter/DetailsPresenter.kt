@@ -19,11 +19,11 @@ class DetailsPresenter(
 ) :
     MvpPresenter<DetailsView>(), Callback {
     override fun onLoadFailed() {
-        println("failed")
+
     }
 
     override fun onPreload() {
-        println("preload")
+
     }
 
     override fun onLoaded(newArticles: MutableList<Article>?) {

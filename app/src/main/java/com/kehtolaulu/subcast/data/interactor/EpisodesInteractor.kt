@@ -4,6 +4,7 @@ import com.kehtolaulu.subcast.data.database.EpisodeDao
 import com.kehtolaulu.subcast.data.network.SubcastApi
 import com.kehtolaulu.subcast.domain.feature.details.Episode
 import com.kehtolaulu.subcast.domain.feature.playlater.ListenLaterRequest
+import com.kehtolaulu.subcast.domain.feature.progress.ProgressRequest
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -34,11 +35,17 @@ class EpisodesInteractor(
             ListenLaterRequest(
                 tokenInteractor.getToken(),
                 episode.id,
-                episode.podcastId
+                episode.podcastId,
+                episode.url
             )
         )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe()
+        Single.fromCallable { dao.listenLater(episode.id) }.subscribeOn(Schedulers.io()).subscribe()
+    }
+
+    fun addListenLater(episode: Episode) {
+        Single.fromCallable { dao.insertEpisode(episode) }.subscribeOn(Schedulers.io()).subscribe()
         Single.fromCallable { dao.listenLater(episode.id) }.subscribeOn(Schedulers.io()).subscribe()
     }
 
@@ -48,6 +55,7 @@ class EpisodesInteractor(
 
     fun saveProgress(episode: Episode, time: Int) {
         Single.fromCallable { dao.insertEpisode(episode) }.subscribeOn(Schedulers.io()).subscribe()
+        subcastApi.saveProgress(ProgressRequest(tokenInteractor.getToken(), episode.id, time, episode.podcastId))
         Single.fromCallable { dao.setProgress(episode.id, time) }.subscribeOn(Schedulers.io()).subscribe()
     }
 

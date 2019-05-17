@@ -1,10 +1,10 @@
 package com.kehtolaulu.subcast.di.modules
 
 import com.facebook.stetho.okhttp3.StethoInterceptor
+import com.kehtolaulu.subcast.data.interactor.TokenInteractor
 import com.kehtolaulu.subcast.data.network.ApiKeyInterceptor
 import com.kehtolaulu.subcast.helpers.ITUNES_URL
 import com.kehtolaulu.subcast.helpers.SUBCAST_URL
-import com.kehtolaulu.subcast.data.interactor.TokenInteractor
 import dagger.Module
 import dagger.Provides
 import okhttp3.Interceptor
@@ -21,7 +21,8 @@ class NetModule {
     @Provides
     @Singleton
     @Named(NAME_API_KEY)
-    fun provideApiKeyInterceptor(interactor: TokenInteractor): ApiKeyInterceptor = ApiKeyInterceptor.create(interactor) as ApiKeyInterceptor
+    fun provideApiKeyInterceptor(interactor: TokenInteractor): ApiKeyInterceptor =
+        ApiKeyInterceptor.create(interactor) as ApiKeyInterceptor
 
     @Provides
     @Singleton

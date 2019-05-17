@@ -17,6 +17,7 @@ import com.kehtolaulu.subcast.presentation.feature.main.activity.MainActivity
 import com.kehtolaulu.subcast.presentation.feature.sync.presenter.SyncPresenter
 import com.kehtolaulu.subcast.presentation.feature.sync.view.SyncView
 import kotlinx.android.synthetic.main.fragment_sync.view.*
+import java.sql.Timestamp
 import javax.inject.Inject
 
 class SyncFragment : MvpAppCompatFragment(), SyncView {
@@ -32,8 +33,8 @@ class SyncFragment : MvpAppCompatFragment(), SyncView {
         activity?.showToast(message)
     }
 
-    override fun showSuccess() {
-        activity?.showToast("successful sync")
+    override fun showSuccess(message: String) {
+        activity?.showToast(message)
     }
 
     override fun setLoginFragment() {
@@ -66,6 +67,7 @@ class SyncFragment : MvpAppCompatFragment(), SyncView {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_sync, container, false)
         view.btn_sign_out.setOnClickListener { presenter.signOut() }
+        view.tv_sync.text = getString(R.string.last_sync_was, Timestamp(System.currentTimeMillis()).toString())
         return view
     }
 

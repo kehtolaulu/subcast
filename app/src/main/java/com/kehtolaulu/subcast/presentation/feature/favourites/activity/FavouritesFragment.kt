@@ -62,10 +62,6 @@ class FavouritesFragment : MvpAppCompatFragment(),
         activity?.showToast(error.message.toString())
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -79,9 +75,5 @@ class FavouritesFragment : MvpAppCompatFragment(),
         rv.layoutManager = LinearLayoutManager(activity)
         updateAdapter()
         return view
-    }
-
-    companion object {
-        fun newInstance() = FavouritesFragment()
     }
 }

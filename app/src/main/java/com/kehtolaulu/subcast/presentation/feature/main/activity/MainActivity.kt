@@ -60,7 +60,7 @@ class MainActivity : MvpAppCompatActivity(),
 
     override fun download(episode: Episode) {
         if (episode.url == null) {
-            showSuccess("can't be downloaded")
+            showSuccess(getString(R.string.download_error))
         }
         presenter.download(episode)
     }
@@ -71,7 +71,7 @@ class MainActivity : MvpAppCompatActivity(),
 
     override fun subscribe(podcast: Podcast) {
         if (tokenInteractor.getToken() == null) {
-            showToast("Please log in first")
+            showToast(getString(R.string.sign_in_plz))
         } else {
             presenter.subscribe(podcast)
         }
@@ -133,7 +133,7 @@ class MainActivity : MvpAppCompatActivity(),
 
         val searchViewItem = menu?.findItem(R.id.action_search)
         val searchView: SearchView = searchViewItem?.actionView as SearchView
-        searchView.queryHint = "Search podcasts"
+        searchView.queryHint = getString(R.string.search_podcasts)
         searchView.setOnSearchClickListener {
             setSearchFragment()
         }

@@ -16,7 +16,12 @@ class LaterPresenter(private val episodesInteractor: EpisodesInteractor) : MvpPr
         val disposable = episodesInteractor.getListenLater()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ viewState.submitListIntoAdapter(it) }, viewState::showError)
+            .subscribe(
+                {
+                    viewState.submitListIntoAdapter(it.filter { episode -> episode.url != "" })
+                },
+                viewState::showError
+            )
         compositeDisposable.add(disposable)
     }
 

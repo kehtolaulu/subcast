@@ -1,12 +1,12 @@
 package com.kehtolaulu.subcast.presentation.feature.sync.presenter
 
+import android.content.Context
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.kehtolaulu.subcast.R
 import com.kehtolaulu.subcast.data.interactor.*
 import com.kehtolaulu.subcast.domain.feature.search.Podcast
 import com.kehtolaulu.subcast.presentation.feature.sync.view.SyncView
-import com.pkmmte.pkrss.Article
-import com.pkmmte.pkrss.Callback
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -19,7 +19,7 @@ class SyncPresenter(
     private val podcastsInteractor: PodcastsInteractor,
     private val episodesInteractor: EpisodesInteractor,
     private val interactor: DatabaseInteractor,
-    private val rssInteractor: RssInteractor
+    private val context: Context
 ) :
     MvpPresenter<SyncView>() {
 
@@ -29,7 +29,9 @@ class SyncPresenter(
         tokenInteractor.deleteToken()
         val disposable = interactor.clearData().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({ viewState.showSuccess() }, { viewState.showError("error when clearing data") })
+            .subscribe(
+                { viewState.showSuccess(context.getString(R.string.goodbye)) },
+                { viewState.showError(context.getString(R.string.clear_error)) })
         viewState.setLoginFragment()
         compositeDisposable.add(disposable)
     }
@@ -48,46 +50,18 @@ class SyncPresenter(
                         podcast?.let { it1 -> podcastsInteractor.insertPodcast(it1) }
                     }
                 }
-                viewState.showSuccess()
             },
-                { viewState.showError("no internet") })
+                { viewState.showError(context.getString(R.string.no_internet)) })
 
         val disposable2 = syncInteractor.syncLater().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 response.list?.forEach { episode ->
-                    episodesInteractor
-                        .getEpisodeById(episode.id)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { episodeById ->
-                            episode.podcastId?.let { id ->
-                                getPodcastById(id).subscribe { podcast ->
-                                    if (podcast != null) {
-                                        rssInteractor.getPodcastEpisodes(podcast)?.callback(object : Callback {
-                                            override fun onLoadFailed() {
-                                                println("failed")
-                                            }
-
-                                            override fun onPreload() {
-                                                println("preload")
-                                            }
-
-                                            override fun onLoaded(newArticles: MutableList<Article>?) {
-                                                println("loaded")
-                                                newArticles?.filter { article ->
-                                                    episodeById.id == (article.author + article.title).hashCode().toString()
-                                                }?.map { _ -> episodesInteractor.listenLater(episodeById) }
-                                            }
-                                        })?.async()
-                                    }
-                                }
-                            }
-                        }
+                    episodesInteractor.addListenLater(episode)
                 }
-                viewState.showSuccess()
-            },
-                { viewState.showError("no internet") })
+            }, {
+                viewState.showError(context.getString(R.string.no_internet))
+            })
 
         val disposable3 = syncInteractor.syncProgress().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -95,8 +69,8 @@ class SyncPresenter(
                 response.progress?.forEach(
                     episodesInteractor::insertEpisode
                 )
-                viewState.showSuccess()
-            }, { viewState.showError("no internet") })
+                viewState.showSuccess(context.getString(R.string.sync_success))
+            }, { viewState.showError(context.getString(R.string.no_internet)) })
         compositeDisposable.add(disposable1)
         compositeDisposable.add(disposable2)
         compositeDisposable.add(disposable3)
