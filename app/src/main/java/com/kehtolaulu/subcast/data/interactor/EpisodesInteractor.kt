@@ -36,7 +36,8 @@ class EpisodesInteractor(
                 tokenInteractor.getToken(),
                 episode.id,
                 episode.podcastId,
-                episode.url
+                episode.url,
+                episode.name
             )
         )
             .subscribeOn(Schedulers.io())

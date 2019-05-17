@@ -15,5 +15,8 @@ data class ListenLaterRequest(
     var podcastId: Int? = null,
     @SerializedName("link")
     @Expose
-    var url: String? = null
+    var url: String? = null,
+    @SerializedName("name")
+    @Expose
+    var name: String? = null
 )

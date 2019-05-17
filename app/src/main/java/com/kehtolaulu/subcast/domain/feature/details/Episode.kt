@@ -16,6 +16,8 @@ data class Episode(
     @PrimaryKey(autoGenerate = false)
     @NonNull
     var id: String,
+    @SerializedName("name")
+    @Expose
     var name: String? = null,
     var description: String? = null,
     @SerializedName("link")
