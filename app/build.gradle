@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 
+apply plugin: 'io.gitlab.arturbosch.detekt'
+
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -31,4 +33,28 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+detekt {
+    version = "1.4.0"
+
+    // specify sources
+    input = files("${project.rootDir}/${project.getName()}/src/main/")
+
+    // path to detekt configuration
+    config = files("${project.rootDir}/detekt-config.yml")
+
+    filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
+    // generates reports to build/reports!!! you should specify this path in
+    // circle ci config as store_test_results: <this_path>
+    reports {
+        xml {
+            enabled = false
+            destination = file("build/reports/detekt.xml")
+        }
+        html {
+            enabled = true
+            destination = file("build/reports/detekt.html")
+        }
+    }
 }
