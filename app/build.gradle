@@ -45,8 +45,6 @@ detekt {
     config = files("${project.rootDir}/detekt-config.yml")
 
     filters = ".*test.*,.*/resources/.*,.*/tmp/.*"
-    // generates reports to build/reports!!! you should specify this path in
-    // circle ci config as store_test_results: <this_path>
     reports {
         xml {
             enabled = false
